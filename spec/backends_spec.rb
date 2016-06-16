@@ -36,14 +36,14 @@ RSpec.describe "Backends" do
       expect(client.backends(service_id: version.service_id, version_number: version.number)).to include(backend)
     end
 
-    #it "updates a version" do
-      #comment = SecureRandom.hex(6)
+    it "updates a backend" do
+      comment = SecureRandom.hex(6)
 
-      #version.update(comment: comment)
+      backend.update(comment: comment)
 
-      #expect(version.comment).to eq(comment)
-      #expect(version.reload.comment).to eq(comment)
-    #end
+      expect(backend.comment).to eq(comment)
+      expect(backend.reload.comment).to eq(comment)
+    end
 
     #it "clones a version" do
       #expected_number = service.versions.map(&:number).max + 1
