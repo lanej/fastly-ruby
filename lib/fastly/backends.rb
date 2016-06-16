@@ -18,7 +18,7 @@ class Fastly::Backends
     requires :service_id, :version_number
 
     new(
-      cistern.get_backend(service_id, version, version_number).body
+      cistern.get_backend(service_id, version_number, identity).body
     )
   end
 

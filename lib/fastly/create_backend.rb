@@ -23,7 +23,8 @@ class Fastly::CreateBackend
   def mock
     find!(:service_versions, service_id, number.to_i)
 
-    backend = cistern.data[:backends][service_id][number.to_i][updated_attributes.fetch("name")] = updated_attributes
+    backend = updated_attributes.merge("version" => number.to_i)
+    cistern.data[:backends][service_id][number.to_i][updated_attributes.fetch("name")] = backend
 
     mock_response(backend)
   end
