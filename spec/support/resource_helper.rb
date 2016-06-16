@@ -58,8 +58,11 @@ module ServiceHelper
     return matching_version if matching_version
 
     version = service.versions.find { |v| !v.locked? } || service.versions.last.clone!
-    version.backends.create(name: service.name, hostname: "#{SecureRandom.hex(3)}.example.com")
-    version.domains.create(name: "#{SecureRandom.hex(3)}.example-#{SecureRandom.hex(3)}.com")
+    version.backends.any? ||
+      version.backends.create(name: service.name, hostname: "#{SecureRandom.hex(3)}.example.com")
+    version.domains.any? ||
+      version.domains.create(name: "#{SecureRandom.hex(3)}.example-#{SecureRandom.hex(3)}.com")
+
     activate = options.delete(:active)
     version.activate! if activate
     version.deactivate! if false == activate
