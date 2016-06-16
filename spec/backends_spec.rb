@@ -32,9 +32,9 @@ RSpec.describe "Backends" do
       ).to eq(backend)
     end
 
-    #it "lists versions" do
-      #expect(client.versions(service_id: a_version.service_id)).to include(version)
-    #end
+    it "lists backends" do
+      expect(client.backends(service_id: version.service_id, version_number: version.number)).to include(backend)
+    end
 
     #it "updates a version" do
       #comment = SecureRandom.hex(6)

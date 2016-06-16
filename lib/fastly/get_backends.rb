@@ -7,6 +7,6 @@ class Fastly::GetBackends
   parameter :number
 
   def mock
-    mock_response(cistern.data.dig(:backends, service_id, number.to_i) || [])
+    mock_response(cistern.data.dig(:backends, service_id, number.to_i).values)
   end
 end
