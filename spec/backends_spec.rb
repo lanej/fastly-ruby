@@ -22,13 +22,15 @@ RSpec.describe "Backends" do
     expect(backend.hostname).to eq(hostname)
   end
 
-  #describe "with a version" do
-    #let!(:version) { a_version(locked: false) }
-    #let!(:service) { version.service }
+  describe "with a backend" do
+    let!(:backend) { a_backend(version: version) }
+    let!(:service) { version.service }
 
-    #it "fetches the version" do
-      #expect(client.versions(service_id: version.service_id).get(version.identity)).to eq(version)
-    #end
+    it "fetches the backend" do
+      expect(
+        client.backends(service_id: version.service_id, version_number: version.number).get(backend.identity)
+      ).to eq(backend)
+    end
 
     #it "lists versions" do
       #expect(client.versions(service_id: a_version.service_id)).to include(version)
@@ -98,5 +100,5 @@ RSpec.describe "Backends" do
 
       #expect(version.reload).not_to be_active
     #end
-  #end
+  end
 end

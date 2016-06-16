@@ -20,6 +20,8 @@ class Fastly::Backends
     new(
       cistern.get_backend(service_id, version_number, identity).body
     )
+  rescue Fastly::Response::NotFound
+    nil
   end
 
   def new(new_attributes={})
