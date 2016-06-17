@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Backend
-  include Fastly::Model
   include Fastly::ServiceVersionModel
 
   identity :id, alias: 'name'

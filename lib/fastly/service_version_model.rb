@@ -2,6 +2,16 @@
 module Fastly::ServiceVersionModel
   attr_reader :cistern
 
+  class << self
+    alias orig_included included
+  end
+
+  def self.included(receiver)
+    orig_included(receiver)
+    receiver.include(Fastly::Model)
+    super
+  end
+
   def service
     @_service ||= begin
                     requires :service_id
