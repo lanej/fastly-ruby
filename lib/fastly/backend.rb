@@ -67,17 +67,6 @@ class Fastly::Backend
   # Weight used to load balance this backend against others.
   attribute :weight, type: :integer
 
-  def reload
-    requires :service_id, :version_number, :identity
-
-    @_service = nil
-    @_version = nil
-
-    merge_attributes(
-      cistern.backends(service_id: service_id, version_number: version_number).get(identity).attributes
-    )
-  end
-
   def create
     requires :service_id, :version_number, :name
 
@@ -85,6 +74,22 @@ class Fastly::Backend
 
     response = cistern.create_backend(service_id, version_number, attributes)
     merge_attributes(response.body)
+  end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_backend(service_id, version_number, identity)
+  end
+
+  def reload
+    requires :service_id, :version_number, :identity
+
+    @_service = nil
+    @_version = nil
+
+    latest = cistern.backends(service_id: service_id, version_number: version_number).get(identity)
+    merge_attributes(latest.attributes) if latest
   end
 
   def save

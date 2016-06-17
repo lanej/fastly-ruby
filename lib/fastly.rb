@@ -55,6 +55,7 @@ require "fastly/create_backend"
 require "fastly/get_backends"
 require "fastly/get_backend"
 require "fastly/update_backend"
+require "fastly/destroy_backend"
 
 require "fastly/domain"
 require "fastly/domains"

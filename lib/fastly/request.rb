@@ -148,8 +148,8 @@ module Fastly::Request
     end
   end
 
-  def delete!(collection, identity, options={})
-    if cistern.data[collection].delete(identity)
+  def delete!(collection, *identities, **options)
+    if cistern.data[collection].dig(*identities[0..-2]).delete(identities.last)
       mock_response({"status" => "ok"})
     else
       raise NotImplementedError
