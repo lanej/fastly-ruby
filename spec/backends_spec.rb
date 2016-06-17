@@ -50,41 +50,5 @@ RSpec.describe 'Backends' do
 
       expect(backend.reload).to eq(nil)
     end
-    # end
-
-    # describe "with an unlocked version" do
-    # let!(:version) { viable_version(locked: false) }
-
-    # it "activates" do
-    # expect {
-    # version.lock!
-    # }.to change(version, :locked).from(false).to(true)
-
-    # expect(version.reload).to be_locked
-    # end
-    # end
-
-    # describe "with a deactivated version" do
-    # let!(:version) { viable_version(active: false) }
-
-    # it "activates" do
-    # expect {
-    # version.activate!
-    # }.to change(version, :active).from(false).to(true)
-
-    # expect(version.reload).to be_active
-    # end
-    # end
-
-    # describe "with an activated version" do
-    # let!(:version) { viable_version(active: true) }
-
-    # it "deactivates" do
-    # expect {
-    # version.deactivate!
-    # }.to change(version, :active).from(true).to(false)
-
-    # expect(version.reload).not_to be_active
-    # end
   end
 end
