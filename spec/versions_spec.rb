@@ -56,9 +56,7 @@ RSpec.describe 'Versions' do
     let!(:version) { viable_version(locked: false) }
 
     it 'activates' do
-      expect do
-        version.lock!
-      end.to change(version, :locked).from(false).to(true)
+      expect { version.lock! }.to change(version, :locked).from(false).to(true)
 
       expect(version.reload).to be_locked
     end
@@ -68,9 +66,7 @@ RSpec.describe 'Versions' do
     let!(:version) { viable_version(active: false) }
 
     it 'activates' do
-      expect do
-        version.activate!
-      end.to change(version, :active).from(false).to(true)
+      expect { version.activate! }.to change(version, :active).from(false).to(true)
 
       expect(version.reload).to be_active
     end
@@ -80,9 +76,7 @@ RSpec.describe 'Versions' do
     let!(:version) { viable_version(active: true) }
 
     it 'deactivates' do
-      expect do
-        version.deactivate!
-      end.to change(version, :active).from(true).to(false)
+      expect { version.deactivate! }.to change(version, :active).from(true).to(false)
 
       expect(version.reload).not_to be_active
     end
