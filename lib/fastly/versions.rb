@@ -21,9 +21,4 @@ class Fastly::Versions
       cistern.get_version(service_id, identity).body
     )
   end
-
-  def new(attributes = {})
-    attributes['service_id'] ||= service_id if service_id
-    super
-  end
 end

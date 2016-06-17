@@ -23,10 +23,6 @@ class Fastly::Domains
     )
   end
 
-  def new(new_attributes = {})
-    super(attributes.merge(new_attributes))
-  end
-
   def create(**attributes)
     new(attributes).tap(&:create)
   end

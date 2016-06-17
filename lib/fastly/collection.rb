@@ -7,4 +7,8 @@ module Fastly::Collection
   def last(**query)
     query.empty? ? super() : all(query).last
   end
+
+  def new(new_attributes = {})
+    super(attributes.merge(new_attributes))
+  end
 end
