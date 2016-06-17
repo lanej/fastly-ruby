@@ -2,12 +2,16 @@ class Fastly::Domain
   include Fastly::Model
   include Fastly::ServiceVersionModel
 
-  identity :id, alias: 'name', type: :string
+  identity :id, alias: 'name'
 
-  attribute :comment, type: :string                           # A personal freeform descriptive note.
-  attribute :name, type: :string                              # The name of the domain or domains associated with this service.
-  attribute :service_id, type: :string                        # The alphanumeric string identifying a service.
-  attribute :version_number, type: :integer, alias: 'version' # The current version of a service.
+  # A personal freeform descriptive note.
+  attribute :comment
+  # The name of the domain or domains associated with this service.
+  attribute :name
+  # The alphanumeric string identifying a service.
+  attribute :service_id
+  # The current version of a service.
+  attribute :version_number, type: :integer, alias: 'version'
 
   def reload
     requires :service_id, :version, :identity
