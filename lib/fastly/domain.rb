@@ -22,6 +22,8 @@ class Fastly::Domain
     merge_attributes(
       cistern.domains(service_id: service_id, version_number: version_number).get(identity).attributes
     )
+  rescue Fastly::Response::NotFound
+    nil
   end
 
   def create
