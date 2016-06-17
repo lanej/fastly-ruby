@@ -49,6 +49,23 @@ module ServiceHelper
     version.backends.create(create_options)
   end
 
+  def a_domain(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_domain = version.domains.find do |domain|
+      options.all? { |k, v| v == domain.attributes[k] }
+    end
+
+    return matching_domain if matching_domain
+
+    create_options = {
+      name: SecureRandom.hex(3),
+      service_id: version.service_id,
+      version_number: version.number,
+    }.merge(options)
+
+    version.domains.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }
