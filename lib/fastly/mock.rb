@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Fastly::Mock
-  KEYSPACE = (('a'..'z').to_a + ('A'..'Z').to_a + (0..9).map(&:to_s)).freeze
+  KEYSPACE = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
 
   def self.data
     @data ||= Hash.new do |d, url|
@@ -53,6 +53,13 @@ class Fastly::Mock
   end
 
   def new_id
-    Array.new(21) { KEYSPACE[rand(KEYSPACE.size) + 1] }.join('')
+    base_16_id = SecureRandom.uuid.delete('-').to_i(16)
+
+    id = []
+    while base_16_id > 0
+      id << KEYSPACE[base_16_id.modulo(62)]
+      base_16_id /= 62
+    end
+    id.join
   end
 end
