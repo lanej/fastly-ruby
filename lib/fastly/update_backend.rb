@@ -9,7 +9,7 @@ class Fastly::UpdateBackend
     ].freeze
 
   request_method :put
-  request_path { |r| "/service/#{r.service_id}/version/#{r.number}/backend/#{name}" }
+  request_path { |r| "/service/#{r.service_id}/version/#{r.number}/backend/#{r.name}" }
   request_params { |r| r.updated_attributes }
 
   parameter :service_id
