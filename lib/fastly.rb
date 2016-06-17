@@ -66,5 +66,9 @@ require 'fastly/get_domain'
 require 'fastly/update_domain'
 require 'fastly/destroy_domain'
 
+require 'fastly/dictionary'
+require 'fastly/dictionaries'
+require 'fastly/create_dictionary'
+
 require 'fastly/real'
 require 'fastly/mock'

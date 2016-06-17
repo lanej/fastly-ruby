@@ -32,8 +32,9 @@ class Fastly::Version
   attribute :vcls,             type: :array
   attribute :wordpress,        type: :array
 
-  has_many :domains, -> { cistern.domains(service_id: service_id, version_number: number) }
-  has_many :backends, -> { cistern.backends(service_id: service_id, version_number: number) }
+  has_many :domains,      -> { cistern.domains(service_id: service_id, version_number: number) }
+  has_many :backends,     -> { cistern.backends(service_id: service_id, version_number: number) }
+  has_many :dictionaries, -> { cistern.dictionaries(service_id: service_id, version_number: number) }
 
   ignore_attributes :service
 

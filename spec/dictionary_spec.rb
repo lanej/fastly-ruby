@@ -3,11 +3,11 @@ require 'spec_helper'
 
 RSpec.describe 'Dictionary' do
   it 'creates a dictionary' do
-    service = a_service
+    version = a_version
 
     name = SecureRandom.hex(3)
     expect(
-      service.dictionaries.create(name: name).identity
+      version.dictionaries.create(name: name).identity
     ).not_to be_nil
   end
 
