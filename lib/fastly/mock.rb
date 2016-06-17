@@ -5,14 +5,21 @@ class Fastly::Mock
   def self.data
     @data ||= Hash.new do |d, url|
       d[url] = {
-        backends: Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
+        backends: service_version_hash,
         customers: {},
-        domains: Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
+        dictionaries: service_version_hash,
+        domains: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},
       }
     end
   end
+
+  def self.service_version_hash
+    Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } }
+  end
+
+  private_class_method :service_version_hash
 
   def self.reset
     data.clear
