@@ -21,9 +21,11 @@ RSpec.describe 'Dictionary' do
       ).to eq(dictionary)
     end
 
-    # it 'lists dictionaries' do
-    # expect(client.dictionaries(service_id: a_dictionary.service_id)).to include(dictionary)
-    # end
+    it 'lists dictionaries' do
+      expect(
+        client.dictionaries(service_id: dictionary.service_id, version_number: dictionary.version_number)
+      ).to include(dictionary)
+    end
 
     # it 'updates a dictionary' do
     # comment = SecureRandom.hex(6)
