@@ -8,6 +8,6 @@ class Fastly::GetDomains
   parameter :number
 
   def mock
-    mock_response(cistern.data.dig(:domains, service_id, number.to_i) || [])
+    mock_response(cistern.data.dig(:domains, service_id, number.to_i).values)
   end
 end

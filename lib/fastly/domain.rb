@@ -14,13 +14,13 @@ class Fastly::Domain
   attribute :version_number, type: :integer, alias: 'version'
 
   def reload
-    requires :service_id, :version, :identity
+    requires :service_id, :version_number, :identity
 
     @_service = nil
     @_version = nil
 
     merge_attributes(
-      cistern.domains(service_id: service_id, version: version).get(identity).attributes
+      cistern.domains(service_id: service_id, version_number: version_number).get(identity).attributes
     )
   end
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Fastly::GetDomain
   include Fastly::Request
+
   request_method :get
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/domain/#{r.name}" }
 

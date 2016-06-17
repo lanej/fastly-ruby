@@ -15,11 +15,11 @@ class Fastly::Domains
     )
   end
 
-  def get(_identity)
+  def get(identity)
     requires :service_id, :version_number
 
     new(
-      cistern.get_domains(service_id, version_number).body
+      cistern.get_domain(service_id, version_number, identity).body
     )
   end
 
