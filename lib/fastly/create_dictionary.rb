@@ -19,15 +19,15 @@ class Fastly::CreateDictionary
   def mock
     find!(:service_versions, service_id, number.to_i)
 
-    identity = cistern.new_id
-
     dictionary = updated_attributes.merge(
       'version' => number,
       'service_id' => service_id,
-      'id' => identity,
+      'id' => cistern.new_id,
     )
 
-    unless dictionary['name']
+    name = dictionary['name']
+
+    unless name
       mock_response({ 'msg' => "Name can't be blank" }, { status: 400 })
     end
 
@@ -38,7 +38,7 @@ class Fastly::CreateDictionary
       )
     end
 
-    cistern.data[:dictionaries][service_id][number.to_i][identity] = dictionary
+    cistern.data[:dictionaries][service_id][number.to_i][name] = dictionary
 
     mock_response(dictionary)
   end

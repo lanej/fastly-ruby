@@ -15,11 +15,11 @@ class Fastly::Dictionaries
     )
   end
 
-  def get(identity)
+  def get(name)
     requires :service_id, :version_number
 
     new(
-      cistern.get_dictionary(service_id, version_number, identity).body
+      cistern.get_dictionary(service_id, version_number, name).body
     )
   end
 end
