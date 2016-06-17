@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::ValidateVersion
   include Fastly::Request
 
@@ -11,12 +12,10 @@ class Fastly::ValidateVersion
     domains = find!(:domains, service_id, number.to_i)
 
     if domains.none?
-      return mock_response({
-        "msg"    => "Version has no associated domains",
-        "status" => "error",
-      })
+      return mock_response('msg' => 'Version has no associated domains',
+                           'status' => 'error',)
     end
 
-    mock_response({"status" => "ok"})
+    mock_response('status' => 'ok')
   end
 end

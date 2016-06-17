@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe "Users" do
+RSpec.describe 'Users' do
   let(:client) { create_client }
 
-  it "fetches the current customer" do
+  it 'fetches the current customer' do
     if Fastly.mocking?
       expect(client.customers.current).to eq(client.current_customer)
     else

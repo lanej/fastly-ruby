@@ -1,35 +1,34 @@
-# inherit_from:
-  # - rubocop-todo.yml
-
-LineLength:
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+Metrics/LineLength:
+  Max: 120
+Style/BlockDelimiters:
+  EnforcedStyle: line_count_based
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+Style/Documentation:
   Enabled: false
-
-HashSyntax:
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+Metrics/AbcSize:
+  Max: 75
+Metrics/MethodLength:
+  Max: 50
+Metrics/ClassLength:
+  Max: 300
+Metrics/ModuleLength:
+  Max: 300
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
+Style/TrailingCommaInArguments:
   Enabled: false
+  #EnforcedStyleForMultiline: consistent_comma # this is very broke
+Style/PredicateName:
+  NameWhitelist:
+    - has_many
 
-BracesAroundHashParameters:
-  Enabled: false
-
-BlockNesting:
-  Enabled: false
-
-AssignmentInCondition:
-  Enabled: false
-
-CollectionMethods:
-  Enabled: false
-
-CyclomaticComplexity:
-  Enabled: false
-
-MethodLength:
-  Enabled: false
-
-PerlBackrefs:
-  Enabled: false
-
-RescueModifier:
-  Enabled: false
-
-HandleExceptions:
-  Enabled: false

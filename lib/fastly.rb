@@ -1,12 +1,13 @@
-require "fastly/version"
+# frozen_string_literal: true
+require 'fastly/version'
 
-require "logger"
-require "securerandom"
+require 'logger'
+require 'securerandom'
 
-require "cistern"
-require "faraday"
-require "faraday_middleware"
-require "faraday/detailed_logger"
+require 'cistern'
+require 'faraday'
+require 'faraday_middleware'
+require 'faraday/detailed_logger'
 
 module Fastly
   include Cistern::Client.with(interface: :module)
@@ -16,53 +17,53 @@ module Fastly
   recognizes :username, :password, :token, :url, :adapter, :logger
 end
 
-require "fastly/token_middleware"
-require "fastly/response"
-require "fastly/request"
-require "fastly/collection"
-require "fastly/service_version_model"
-require "fastly/model"
+require 'fastly/token_middleware'
+require 'fastly/response'
+require 'fastly/request'
+require 'fastly/collection'
+require 'fastly/service_version_model'
+require 'fastly/model'
 
-require "fastly/customer"
-require "fastly/customers"
-require "fastly/get_customer"
-require "fastly/get_current_customer"
+require 'fastly/customer'
+require 'fastly/customers'
+require 'fastly/get_customer'
+require 'fastly/get_current_customer'
 
-require "fastly/get_service"
-require "fastly/get_services"
-require "fastly/create_service"
-require "fastly/destroy_service"
-require "fastly/update_service"
-require "fastly/search_services"
-require "fastly/service"
-require "fastly/services"
+require 'fastly/get_service'
+require 'fastly/get_services'
+require 'fastly/create_service'
+require 'fastly/destroy_service'
+require 'fastly/update_service'
+require 'fastly/search_services'
+require 'fastly/service'
+require 'fastly/services'
 
-require "fastly/create_version"
-require "fastly/get_versions"
-require "fastly/get_version"
-require "fastly/update_version"
-require "fastly/activate_version"
-require "fastly/deactivate_version"
-require "fastly/clone_version"
-require "fastly/validate_version"
-require "fastly/lock_version"
-require "fastly/version_model"
-require "fastly/versions"
+require 'fastly/create_version'
+require 'fastly/get_versions'
+require 'fastly/get_version'
+require 'fastly/update_version'
+require 'fastly/activate_version'
+require 'fastly/deactivate_version'
+require 'fastly/clone_version'
+require 'fastly/validate_version'
+require 'fastly/lock_version'
+require 'fastly/version_model'
+require 'fastly/versions'
 
-require "fastly/backend"
-require "fastly/backends"
-require "fastly/create_backend"
-require "fastly/get_backends"
-require "fastly/get_backend"
-require "fastly/update_backend"
-require "fastly/destroy_backend"
+require 'fastly/backend'
+require 'fastly/backends'
+require 'fastly/create_backend'
+require 'fastly/get_backends'
+require 'fastly/get_backend'
+require 'fastly/update_backend'
+require 'fastly/destroy_backend'
 
-require "fastly/domain"
-require "fastly/domains"
-require "fastly/create_domain"
-require "fastly/get_domains"
-require "fastly/get_domain"
-require "fastly/update_domain"
+require 'fastly/domain'
+require 'fastly/domains'
+require 'fastly/create_domain'
+require 'fastly/get_domains'
+require 'fastly/get_domain'
+require 'fastly/update_domain'
 
-require "fastly/real"
-require "fastly/mock"
+require 'fastly/real'
+require 'fastly/mock'

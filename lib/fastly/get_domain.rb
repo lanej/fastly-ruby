@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::GetDomain
   include Fastly::Request
   request_method :get

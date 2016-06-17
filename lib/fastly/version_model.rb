@@ -1,9 +1,11 @@
+# frozen_string_literal: true
 class Fastly::Version
   include Fastly::Model
 
-  identity :id, alias: "number", type: :integer
+  identity :id, alias: 'number', type: :integer
 
-  attribute :active,           type: :boolean # Whether this is the active version or not.
+  # Whether this is the active version or not.
+  attribute :active,           type: :boolean
   attribute :cache_settings,   type: :array
   attribute :comment
   attribute :conditions,       type: :array
@@ -14,9 +16,11 @@ class Fastly::Version
   attribute :gzips,            type: :array
   attribute :headers,          type: :array
   attribute :healthchecks,     type: :array
-  attribute :locked,           type: :boolean # Whether this version is locked or not. Objects can not be added or edited on locked versions.
+  # Whether this version is locked or not. Objects can not be added or edited on locked versions.
+  attribute :locked,           type: :boolean
   attribute :matches,          type: :array
-  attribute :number,           type: :integer # The number of this version.
+  # The number of this version.
+  attribute :number,           type: :integer
   attribute :origins,          type: :array
   attribute :request_settings, type: :array
   attribute :response_objects, type: :array
@@ -65,8 +69,8 @@ class Fastly::Version
     requires :service_id, :number
 
     data = cistern.validate_version(service_id, number).body
-    return [true, nil] if data["status"] == "ok"
-    return [false, data["msg"]]
+    return [true, nil] if data['status'] == 'ok'
+    [false, data['msg']]
   end
 
   def service
@@ -93,5 +97,4 @@ class Fastly::Version
                      end
     merge_attributes(new_attributes)
   end
-
 end

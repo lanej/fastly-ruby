@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 class Fastly::Services
   include Fastly::Collection
 
   model Fastly::Service
 
-  def all(options={})
+  def all(options = {})
     resources = if options.empty?
                   cistern.get_services.body
                 else
@@ -20,5 +21,4 @@ class Fastly::Services
   rescue Fastly::Response::BadRequest
     nil
   end
-
 end

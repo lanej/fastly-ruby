@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::Response
   class Error < StandardError
     attr_reader :response
@@ -6,10 +7,10 @@ class Fastly::Response
       @response = response
       super(
         {
-          :status  => response.status,
-          :headers => response.headers,
-          :body    => response.body,
-          :request => response.request
+          status: response.status,
+          headers: response.headers,
+          body: response.body,
+          request: response.request,
         }.inspect
       )
     end
@@ -33,7 +34,7 @@ class Fastly::Response
     422 => Unprocessable,
     429 => RateLimitExceeded,
     500 => Unexpected,
-  }
+  }.freeze
 
   attr_reader :headers, :status, :body, :request
 
@@ -43,12 +44,13 @@ class Fastly::Response
   end
 
   def successful?
-    self.status >= 200 && self.status <= 299 || self.status == 304
+    status >= 200 && status <= 299 || status == 304
   end
 
   def raise!
     if !successful?
-      raise (EXCEPTION_MAPPING[self.status] || Error).new(self)
+      klass = EXCEPTION_MAPPING[status] || Error
+      raise klass, self
     else self
     end
   end

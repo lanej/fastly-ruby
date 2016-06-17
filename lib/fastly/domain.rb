@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::Domain
   include Fastly::Model
   include Fastly::ServiceVersionModel

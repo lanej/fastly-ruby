@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::DestroyService
   include Fastly::Request
   request_method :delete
@@ -7,8 +8,8 @@ class Fastly::DestroyService
 
   def mock
     service = find!(:services, service_id)
-    service["deleted_at"] = Time.now.iso8601
+    service['deleted_at'] = Time.now.iso8601
 
-    response(body: { "status" => "ok"})
+    response(body: { 'status' => 'ok' })
   end
 end

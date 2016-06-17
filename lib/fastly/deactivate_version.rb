@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::DeactivateVersion
   include Fastly::Request
   request_method :put
@@ -11,7 +12,7 @@ class Fastly::DeactivateVersion
 
     service_versions = cistern.data[:service_versions][service_id]
     version = service_versions.fetch(number.to_i)
-    version["active"] = false
+    version['active'] = false
 
     mock_response(version)
   end

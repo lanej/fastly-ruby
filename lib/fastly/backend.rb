@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 class Fastly::Backend
   include Fastly::Model
   include Fastly::ServiceVersionModel
 
-  identity :id, alias: "name"
+  identity :id, alias: 'name'
 
   # An hostname, IPv4, or IPv6 address for the backend.
   attribute :address
@@ -42,7 +43,8 @@ class Fastly::Backend
   attribute :request_condition
   # The alphanumeric string identifying a service.
   attribute :service_id
-  # The shield POP designated to reduce inbound load on this origin by serving the cached data to the rest of the network.
+  # The shield POP designated to reduce inbound load on this origin by serving the cached data to the rest of the
+  #   network.
   attribute :shield
   # CA certificate attached to origin.
   attribute :ssl_ca_cert
@@ -98,5 +100,4 @@ class Fastly::Backend
     response = cistern.update_backend(service_id, version_number, name, attributes)
     merge_attributes(response.body)
   end
-
 end

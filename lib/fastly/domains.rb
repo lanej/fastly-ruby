@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::Domains
   include Fastly::Collection
 
@@ -14,7 +15,7 @@ class Fastly::Domains
     )
   end
 
-  def get(identity)
+  def get(_identity)
     requires :service_id, :version_number
 
     new(
@@ -22,12 +23,11 @@ class Fastly::Domains
     )
   end
 
-  def new(new_attributes={})
+  def new(new_attributes = {})
     super(attributes.merge(new_attributes))
   end
 
   def create(**attributes)
     new(attributes).tap(&:create)
   end
-
 end

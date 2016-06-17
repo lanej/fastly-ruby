@@ -1,4 +1,5 @@
-ENV["MOCK_FASTLY"] ||= "true"
+# frozen_string_literal: true
+ENV['MOCK_FASTLY'] ||= 'true'
 
 Bundler.require(:test)
 
@@ -7,6 +8,4 @@ require 'fastly'
 
 Dir[File.expand_path('../{support,shared,matchers,fixtures}/*.rb', __FILE__)].each { |f| require(f) }
 
-if ENV["MOCK_FASTLY"] == "true"
-  Fastly.mock!
-end
+Fastly.mock! if ENV['MOCK_FASTLY'] == 'true'

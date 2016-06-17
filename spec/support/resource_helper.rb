@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 module ServiceHelper
   class << self
     attr_accessor :example_services, :services
   end
 
   def self.reset
-    self.example_services = self.services
+    self.example_services = services
   end
 
   def self.service(validate: ->(r) { r.reload.deleted_at.nil? })
@@ -24,7 +25,7 @@ module ServiceHelper
     valid_service
   end
 
-  def create_service(options={})
+  def create_service(options = {})
     name = options.fetch(:name, SecureRandom.hex(8))
 
     client.services.create(name: name)
@@ -33,7 +34,7 @@ module ServiceHelper
   def a_backend(**options)
     version = options.delete(:version) || a_version(options)
     matching_backend = version.backends.find do |backend|
-      options.all? { |k,v| v == backend.attributes[k] }
+      options.all? { |k, v| v == backend.attributes[k] }
     end
 
     return matching_backend if matching_backend
@@ -48,7 +49,7 @@ module ServiceHelper
     version.backends.create(create_options)
   end
 
-  def a_service(options={})
+  def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }
 
@@ -57,7 +58,7 @@ module ServiceHelper
 
   def a_version(service: a_service, **options)
     matching_version = service.versions.find do |version|
-      options.all? { |k,v| v == version.attributes[k] }
+      options.all? { |k, v| v == version.attributes[k] }
     end
     matching_version || service.versions.create(options)
   end
@@ -65,12 +66,20 @@ module ServiceHelper
   def viable_version(**options)
     service = options.delete(:service) || a_service
 
-    matching_version = service.versions.find { |version|
-      version.backends.any? && version.domains.any? && !version.locked? &&
-        options.all? { |k,v| v == version.attributes[k] }
-    }
+    existing_viable_version(service, options) || create_viable_version(service, options)
+  end
 
-    return matching_version if matching_version
+  private
+
+  def existing_viable_version(service, attributes)
+    service.versions.find do |version|
+      version.backends.any? && version.domains.any? && !version.locked? &&
+        attributes.all? { |k, v| v == version.attributes[k] }
+    end
+  end
+
+  def create_viable_version(service, attributes)
+    attributes = attributes.dup
 
     version = service.versions.find { |v| !v.locked? } || service.versions.last.clone!
     version.backends.any? ||
@@ -78,10 +87,10 @@ module ServiceHelper
     version.domains.any? ||
       version.domains.create(name: "#{SecureRandom.hex(3)}.example-#{SecureRandom.hex(3)}.com")
 
-    activate = options.delete(:active)
+    activate = attributes.delete(:active)
     version.activate! if activate
     version.deactivate! if false == activate
-    version.update(options) if options.any?
+    version.update(attributes) if attributes.any?
 
     version
   end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::TokenMiddleware < Faraday::Middleware
   def initialize(app, token)
     super(app)
@@ -6,7 +7,7 @@ class Fastly::TokenMiddleware < Faraday::Middleware
   end
 
   def call(request_env)
-    request_env[:request_headers].merge!("Fastly-Key" => @token)
+    request_env[:request_headers]['Fastly-Key'] = @token
 
     @app.call(request_env)
   end

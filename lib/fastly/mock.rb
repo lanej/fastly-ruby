@@ -1,17 +1,17 @@
+# frozen_string_literal: true
 class Fastly::Mock
-
-  KEYSPACE = (("a".."z").to_a + ("A".."Z").to_a + (0..9).map(&:to_s)).freeze
+  KEYSPACE = (('a'..'z').to_a + ('A'..'Z').to_a + (0..9).map(&:to_s)).freeze
 
   def self.data
-    @data ||= Hash.new { |d, url|
+    @data ||= Hash.new do |d, url|
       d[url] = {
-        :backends         => Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
-        :customers        => {},
-        :domains          => Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
-        :service_versions => Hash.new { |sv, s| sv[s] = {} },
-        :services         => {},
+        backends: Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
+        customers: {},
+        domains: Hash.new { |sv, s| sv[s] = Hash.new { |vb, b| vb[b] = {} } },
+        service_versions: Hash.new { |sv, s| sv[s] = {} },
+        services: {},
       }
-    }
+    end
   end
 
   def self.reset
@@ -20,11 +20,11 @@ class Fastly::Mock
 
   attr_reader :via, :logger, :adapter, :username, :password, :token, :url, :connection
 
-  def initialize(options={})
+  def initialize(options = {})
     @username, @password, @token, @url, @adapter, @logger =
       options.values_at(:username, :password, :token, :url, :adapter, :logger)
 
-    @url ||= "https://api.fastly.com"
+    @url ||= 'https://api.fastly.com'
   end
 
   attr_reader :current_customer_id
@@ -46,6 +46,6 @@ class Fastly::Mock
   end
 
   def new_id
-    21.times.map { KEYSPACE[rand(KEYSPACE.size) + 1] }.join("")
+    Array.new(21) { KEYSPACE[rand(KEYSPACE.size) + 1] }.join('')
   end
 end

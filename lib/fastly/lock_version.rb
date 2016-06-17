@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::LockVersion
   include Fastly::Request
 
@@ -10,7 +11,7 @@ class Fastly::LockVersion
   def mock
     find!(:services, service_id)
     version = cistern.data[:service_versions][service_id].fetch(number.to_i)
-    version.merge!("locked" => true)
+    version['locked'] = true
 
     mock_response(version)
   end

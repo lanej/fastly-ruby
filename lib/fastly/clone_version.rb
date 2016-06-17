@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::CloneVersion
   include Fastly::Request
 
@@ -12,7 +13,7 @@ class Fastly::CloneVersion
     version = find!(:service_versions, service_id, number.to_i)
     latest = service_versions.keys.max + 1
 
-    service_versions[latest] = version.merge!("number" => latest)
+    service_versions[latest] = version.merge!('number' => latest)
 
     mock_response(version)
   end

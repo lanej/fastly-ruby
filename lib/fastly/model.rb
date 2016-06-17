@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Fastly::Model
   class << self
     alias cistern_included included

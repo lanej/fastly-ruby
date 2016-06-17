@@ -1,13 +1,14 @@
+# frozen_string_literal: true
 class Fastly::UpdateService
   include Fastly::Request
 
   def self.accepted_parameters
-    %w[name comment]
+    %w(name comment)
   end
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}" }
-  request_params { |r| r.updated_attributes }
+  request_params(&:updated_attributes)
 
   parameter :service_id
   parameter :attributes

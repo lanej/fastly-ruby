@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::Backends
   include Fastly::Collection
 
@@ -24,12 +25,11 @@ class Fastly::Backends
     nil
   end
 
-  def new(new_attributes={})
+  def new(new_attributes = {})
     super(attributes.merge(new_attributes))
   end
 
   def create(**attributes)
     new(attributes).tap(&:create)
   end
-
 end

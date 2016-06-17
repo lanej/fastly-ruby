@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Fastly::Versions
   include Fastly::Collection
 
@@ -21,8 +22,8 @@ class Fastly::Versions
     )
   end
 
-  def new(attributes={})
-    attributes["service_id"] ||= service_id if service_id
+  def new(attributes = {})
+    attributes['service_id'] ||= service_id if service_id
     super
   end
 end

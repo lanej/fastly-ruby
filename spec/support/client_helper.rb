@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rspec/core/shared_context'
 
 module ClientHelper
@@ -5,7 +6,7 @@ module ClientHelper
 
   let(:client) { create_client }
 
-  def create_client(options={})
+  def create_client(options = {})
     via = options[:via] || :token
     client_options = {}
 
@@ -13,27 +14,24 @@ module ClientHelper
     when :token then
       token = options[:token]
 
-      token ||= Fastly.mocking? ? SecureRandom.hex(20) : ENV.fetch("FASTLY_TOKEN")
+      token ||= Fastly.mocking? ? SecureRandom.hex(20) : ENV.fetch('FASTLY_TOKEN')
 
-      client_options.merge!(:token => token)
+      client_options[:token] = token
     when :credentials then
       username, password = options.values_at(:username, :password)
 
-      username ||= Fastly.mocking ? SecureRandom.hex(6) : ENV.fetch("FASTLY_USERNAME")
-      password ||= Fastly.mocking ? SecureRandom.hex(8) : ENV.fetch("FASTLY_PASSWORD")
+      username ||= Fastly.mocking ? SecureRandom.hex(6) : ENV.fetch('FASTLY_USERNAME')
+      password ||= Fastly.mocking ? SecureRandom.hex(8) : ENV.fetch('FASTLY_PASSWORD')
 
-      client_options.merge!(username: username, password: password)
+      client_options[:username] = username
+      client_options[:password] = password
     else
       raise ArgumentError, "unable to process via: #{via}"
     end
 
-    if ENV["VERBOSE"]
-      client_options.merge!(logger: Logger.new(STDOUT))
-    end
+    client_options[:logger] = Logger.new(STDOUT) if ENV['VERBOSE']
 
-    if ENV["FASTLY_URL"]
-      client_options.merge!(url: ENV["FASTLY_URL"])
-    end
+    client_options[:url] = ENV['FASTLY_URL'] if ENV['FASTLY_URL']
 
     client = Fastly.new(client_options)
 
@@ -44,30 +42,28 @@ module ClientHelper
     client
   end
 
-  def create_customer(client, options={})
-    if Fastly.mocking?
-      customer = {
-        "can_stream_syslog"       => nil,
-        "owner_id"                => client.new_id,
-        "can_upload_vcl"          => nil,
-        "has_config_panel"        => nil,
-        "raw_api_key"             => SecureRandom.hex(20),
-        "name"                    => client.new_id,
-        "id"                      => client.new_id,
-        "can_configure_wordpress" => nil,
-        "updated_at"              => Time.now.iso8601,
-        "created_at"              => Time.now.iso8601,
-        "can_reset_passwords"     => true,
-        "pricing_plan"            => "customer",
-        "billing_contact_id"      => nil
-      }.merge(options[:customer] || {})
+  def create_customer(client, options = {})
+    raise NotImplementedError unless Fastly.mocking?
 
-      client.data[:customers][customer.fetch("id")] = customer
+    customer = {
+      'can_stream_syslog'       => nil,
+      'owner_id'                => client.new_id,
+      'can_upload_vcl'          => nil,
+      'has_config_panel'        => nil,
+      'raw_api_key'             => SecureRandom.hex(20),
+      'name'                    => client.new_id,
+      'id'                      => client.new_id,
+      'can_configure_wordpress' => nil,
+      'updated_at'              => Time.now.iso8601,
+      'created_at'              => Time.now.iso8601,
+      'can_reset_passwords'     => true,
+      'pricing_plan'            => 'customer',
+      'billing_contact_id'      => nil,
+    }.merge(options[:customer] || {})
 
-      client.customers.new(customer)
-    else
-      raise NotImplementedError
-    end
+    client.data[:customers][customer.fetch('id')] = customer
+
+    client.customers.new(customer)
   end
 end
 
