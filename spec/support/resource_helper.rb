@@ -75,7 +75,7 @@ module ServiceHelper
     return matching_dictionary if matching_dictionary
 
     create_options = {
-      name: "fst-" + SecureRandom.hex(3),
+      name: "fst_" + SecureRandom.hex(3),
       service_id: version.service_id,
       version_number: version.number,
     }.merge(options)

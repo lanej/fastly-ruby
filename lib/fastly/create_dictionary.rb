@@ -17,11 +17,12 @@ class Fastly::CreateDictionary
   end
 
   def self.validate(request, dictionary)
-    unless dictionary['name']
+    name = dictionary['name']
+    unless name
       request.mock_response({ 'msg' => "Name can't be blank" }, { status: 400 })
     end
 
-    unless dictionary['name'] =~ /\A[a-zA-Z]/
+    unless name =~ /\A[a-zA-Z]/ && name =~ /\A[A-Za-z0-9_]+\Z/
       request.mock_response(
         { 'detail' => 'Name must start with alphabetical and contain only alphanumeric, underscore, and whitespace' },
         { status: 400 }

@@ -28,7 +28,7 @@ RSpec.describe 'Dictionary' do
     end
 
     it 'updates a dictionary' do
-      name = "fst-" + SecureRandom.hex(6)
+      name = "fst_" + SecureRandom.hex(6)
 
       dictionary.update(name: name)
 
