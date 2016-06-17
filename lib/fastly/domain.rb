@@ -34,7 +34,7 @@ class Fastly::Domain
   def save
     requires :service_id, :version_number, :identity
 
-    response = cistern.update_domain(service_id, version_number, name, attributes)
+    response = cistern.update_domain(service_id, version_number, name, dirty_attributes)
     merge_attributes(response.body)
   end
 end
