@@ -16,6 +16,19 @@ class Fastly::CreateDictionary
     ACCEPTED_PARAMETERS
   end
 
+  def self.validate(request, dictionary)
+    unless dictionary['name']
+      request.mock_response({ 'msg' => "Name can't be blank" }, { status: 400 })
+    end
+
+    unless dictionary['name'] =~ /\A[a-zA-Z]/
+      request.mock_response(
+        { 'detail' => 'Name must start with alphabetical and contain only alphanumeric, underscore, and whitespace' },
+        { status: 400 }
+      )
+    end
+  end
+
   def mock
     find!(:service_versions, service_id, number.to_i)
 
@@ -25,18 +38,9 @@ class Fastly::CreateDictionary
       'id' => cistern.new_id,
     )
 
+    self.class.validate(self, dictionary)
+
     name = dictionary['name']
-
-    unless name
-      mock_response({ 'msg' => "Name can't be blank" }, { status: 400 })
-    end
-
-    unless dictionary['name'] =~ /\A[a-zA-Z]/
-      mock_response(
-        { 'detail' => 'Name must start with alphabetical and contain only alphanumeric, underscore, and whitespace' },
-        { status: 400 }
-      )
-    end
 
     cistern.data[:dictionaries][service_id][number.to_i][name] = dictionary
 

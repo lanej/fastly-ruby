@@ -27,13 +27,13 @@ RSpec.describe 'Dictionary' do
       ).to include(dictionary)
     end
 
-    # it 'updates a dictionary' do
-    # comment = SecureRandom.hex(6)
+    it 'updates a dictionary' do
+      name = "fst-" + SecureRandom.hex(6)
 
-    # dictionary.update(comment: comment)
+      dictionary.update(name: name)
 
-    # expect(dictionary.comment).to eq(comment)
-    # expect(dictionary.reload.comment).to eq(comment)
-    # end
+      expect(dictionary.name).to eq(name)
+      expect(dictionary.reload.name).to eq(name)
+    end
   end
 end

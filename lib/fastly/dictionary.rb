@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Fastly::Dictionary
-  include Fastly::Model
+  include Fastly::ServiceVersionModel
 
   # The alphanumeric string identifying a dictionary.
   identity :id
@@ -19,7 +19,20 @@ class Fastly::Dictionary
   attribute :version_number, type: :integer, alias: 'version'
 
   def save
-    new_record? ? create : update
+    new_record? ? create : patch
+  end
+
+  def reload
+    requires :service_id, :version_number, :name
+
+    @_service = nil
+    @_version = nil
+
+    merge_attributes(
+      cistern.dictionaries(service_id: service_id, version_number: version_number).get(name).attributes
+    )
+  rescue Fastly::Response::NotFound
+    nil
   end
 
   def create
@@ -29,7 +42,13 @@ class Fastly::Dictionary
     merge_attributes(response.body)
   end
 
-  def update
-    raise NotImplementedError
+  private
+
+  def patch
+    requires :name, :service_id, :version_number
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_dictionary(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
   end
 end
