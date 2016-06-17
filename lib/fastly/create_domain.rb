@@ -18,8 +18,9 @@ class Fastly::CreateDomain
 
   def mock
     find!(:service_versions, service_id, number.to_i)
-
-    domain = cistern.data[:domains][service_id][number.to_i][updated_attributes.fetch('name')] = updated_attributes
+    name = updated_attributes.fetch('name')
+    domain = updated_attributes.merge('version' => number, 'service_id' => service_id)
+    cistern.data[:domains][service_id][number.to_i][name] = domain
 
     mock_response(domain)
   end
