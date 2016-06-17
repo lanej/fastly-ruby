@@ -27,6 +27,17 @@ class Fastly::CreateDictionary
       'id' => identity,
     )
 
+    unless dictionary['name']
+      mock_response({ 'msg' => "Name can't be blank" }, { status: 400 })
+    end
+
+    unless dictionary['name'] =~ /\A[a-zA-Z]/
+      mock_response(
+        { 'detail' => 'Name must start with alphabetical and contain only alphanumeric, underscore, and whitespace' },
+        { status: 400 }
+      )
+    end
+
     cistern.data[:dictionaries][service_id][number.to_i][identity] = dictionary
 
     mock_response(dictionary)

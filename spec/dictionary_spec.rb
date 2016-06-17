@@ -5,7 +5,7 @@ RSpec.describe 'Dictionary' do
   it 'creates a dictionary' do
     version = a_version
 
-    name = SecureRandom.hex(3)
+    name = "f" + SecureRandom.hex(3)
     expect(
       version.dictionaries.create(name: name).identity
     ).not_to be_nil
