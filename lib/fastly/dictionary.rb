@@ -20,6 +20,12 @@ class Fastly::Dictionary
 
   has_many :items, -> { cistern.dictionary_items(dictionary_id: identity, service_id: service_id) }
 
+  def destroy
+    requires :service_id, :version_number, :name
+
+    cistern.destroy_dictionary(service_id, version_number, name)
+  end
+
   def save
     new_record? ? create : patch
   end

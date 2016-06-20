@@ -35,5 +35,11 @@ RSpec.describe 'Dictionary' do
       expect(dictionary.name).to eq(name)
       expect(dictionary.reload.name).to eq(name)
     end
+
+    it 'destroys a dictionary' do
+      expect {
+        dictionary.destroy
+      }.to change { dictionary.reload }.to(nil)
+    end
   end
 end
