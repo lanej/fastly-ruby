@@ -44,5 +44,11 @@ RSpec.describe 'DictionaryItem' do
       end.to change(dictionary_item, :value).from(old_value).to(new_value)
         .and change { dictionary.items.get(dictionary_item.key).value }.from(old_value).to(new_value)
     end
+
+    it 'destroys' do
+      expect {
+        dictionary_item.destroy
+      }.to change { dictionary_item.reload }.to(nil)
+    end
   end
 end

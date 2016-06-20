@@ -19,6 +19,13 @@ class Fastly::DictionaryItem
 
   belongs_to :service, -> { cistern.services.get(service_id) }
 
+  def destroy
+    requires :service_id, :dictionary_id, :key
+
+    response = cistern.destroy_dictionary_item(service_id, dictionary_id, key)
+    merge_attributes(response.body)
+  end
+
   # upsert
   def save
     requires :service_id, :dictionary_id, :key

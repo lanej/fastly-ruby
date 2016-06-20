@@ -79,6 +79,7 @@ require 'fastly/create_dictionary_item'
 require 'fastly/get_dictionary_items'
 require 'fastly/get_dictionary_item'
 require 'fastly/upsert_dictionary_item'
+require 'fastly/destroy_dictionary_item'
 
 require 'fastly/real'
 require 'fastly/mock'
