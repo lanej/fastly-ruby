@@ -22,7 +22,7 @@ class Fastly::CreateDictionaryItem
       'deleted_at' => nil,
     }
 
-    cistern.data[:dictionary_items][service_id][dictionary_id] = dictionary_item
+    cistern.data[:dictionary_items][service_id][dictionary_id][key] = dictionary_item
 
     mock_response(dictionary_item)
   end
