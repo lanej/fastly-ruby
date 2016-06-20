@@ -17,4 +17,21 @@ RSpec.describe 'DictionaryItem' do
     expect(item.service).to eq(service)
     expect(item.dictionary_id).to eq(dictionary.id)
   end
+
+  describe 'with a dictionary item' do
+    let!(:dictionary_item) do
+      dictionary.items.first ||
+        dictionary.items.create(key: SecureRandom.hex(3), value: SecureRandom.hex(3))
+    end
+
+    it 'updates the value' do
+      old_value = dictionary_item.value
+      new_value = SecureRandom.hex(3)
+
+      expect do
+        dictionary_item.update(value: new_value)
+      end.to change(dictionary_item, :value).from(old_value).to(new_value)
+        .and change { dictionary.items.get(dictionary_item.key).value }.from(old_value).to(new_value)
+    end
+  end
 end
