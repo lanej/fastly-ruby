@@ -42,6 +42,14 @@ class Fastly::Dictionary
     merge_attributes(response.body)
   end
 
+  def service
+    @_service ||= begin
+                    requires :service_id
+
+                    cistern.services.get(service_id)
+                  end
+  end
+
   private
 
   def patch
