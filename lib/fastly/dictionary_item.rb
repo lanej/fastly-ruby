@@ -17,6 +17,8 @@ class Fastly::DictionaryItem
   # Time-stamp (GMT) when the dictionary was updated.
   attribute :updated_at, type: :time
 
+  belongs_to :service, -> { cistern.services.get(service_id) }
+
   # upsert
   def save
     requires :service_id, :dictionary_id, :key
@@ -35,14 +37,6 @@ class Fastly::DictionaryItem
     )
   rescue Fastly::Response::NotFound
     nil
-  end
-
-  def service
-    @_service ||= begin
-                    requires :service_id
-
-                    cistern.services.get(service_id)
-                  end
   end
 
   def create

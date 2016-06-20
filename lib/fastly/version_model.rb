@@ -32,6 +32,8 @@ class Fastly::Version
   attribute :vcls,             type: :array
   attribute :wordpress,        type: :array
 
+  belongs_to :service, -> { cistern.services.get(service_id) }
+
   has_many :domains,      -> { cistern.domains(service_id: service_id, version_number: number) }
   has_many :backends,     -> { cistern.backends(service_id: service_id, version_number: number) }
   has_many :dictionaries, -> { cistern.dictionaries(service_id: service_id, version_number: number) }
@@ -74,17 +76,9 @@ class Fastly::Version
     [false, data['msg']]
   end
 
-  def service
-    @_service ||= begin
-                    requires :service_id
-
-                    cistern.services.get(service_id)
-                  end
-  end
-
   def reload
     requires :service_id, :identity
-    @_service = nil
+
     merge_attributes(
       cistern.versions(service_id: service_id).get(identity).attributes
     )

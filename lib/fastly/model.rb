@@ -33,5 +33,15 @@ module Fastly::Model
 
       associations << name
     end
+
+    def belongs_to(name, block)
+      reader_method = name
+
+      attribute name
+
+      define_method reader_method do
+        attributes[name] ||= instance_exec(&block)
+      end
+    end
   end
 end

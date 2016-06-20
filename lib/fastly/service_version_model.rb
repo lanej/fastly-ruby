@@ -10,21 +10,8 @@ module Fastly::ServiceVersionModel
     orig_included(receiver)
     receiver.include(Fastly::Model)
     super
-  end
 
-  def service
-    @_service ||= begin
-                    requires :service_id
-
-                    cistern.services.get(service_id)
-                  end
-  end
-
-  def version
-    @_version ||= begin
-                    requires :service_id, :version_number
-
-                    cistern.versions(service_id: service_id).get(version_number)
-                  end
+    receiver.belongs_to :service, -> { cistern.services.get(service_id) }
+    receiver.belongs_to :version, -> { cistern.versions(service_id: service_id).get(version_number) }
   end
 end
