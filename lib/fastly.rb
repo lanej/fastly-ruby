@@ -73,5 +73,9 @@ require 'fastly/get_dictionaries'
 require 'fastly/get_dictionary'
 require 'fastly/update_dictionary'
 
+require 'fastly/dictionary_item'
+require 'fastly/dictionary_items'
+require 'fastly/create_dictionary_item'
+
 require 'fastly/real'
 require 'fastly/mock'
