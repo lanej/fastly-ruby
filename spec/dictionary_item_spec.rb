@@ -9,7 +9,7 @@ RSpec.describe 'DictionaryItem' do
     key = SecureRandom.hex(3)
     value = SecureRandom.hex(3)
 
-    item = client.dictionary_items(service_id: service.id, dictionary_id: dictionary.id).create(key: key, value: value)
+    item = dictionary.items.create(key: key, value: value)
 
     expect(item.key).to eq(key)
     expect(item.value).to eq(value)

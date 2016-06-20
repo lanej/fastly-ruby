@@ -18,6 +18,8 @@ class Fastly::Dictionary
   # The current version of a service.
   attribute :version_number, type: :integer, alias: 'version'
 
+  has_many :items, -> { cistern.dictionary_items(dictionary_id: identity, service_id: service_id) }
+
   def save
     new_record? ? create : patch
   end
