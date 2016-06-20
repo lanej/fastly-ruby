@@ -12,20 +12,15 @@ class Fastly::CreateDictionaryItem
   parameter :value
 
   def mock
-    find!(:dictionaries, service_id) do |sv|
-      sv.values.find { |d| d.values.find { |dict| dict['id'] == dictionary_id } }
+    existing_item = cistern.data.dig(:dictionary_items, service_id, dictionary_id, key)
+
+    if existing_item
+      mock_response({
+        'msg' => 'Duplicate record',
+        'detail' => "Duplicate dictionary_item: ",
+      }, { status: 409 })
     end
 
-    dictionary_item = {
-      'item_key' => key,
-      'item_value' => value,
-      'created_at' => timestamp,
-      'updated_at' => timestamp,
-      'deleted_at' => nil,
-    }
-
-    cistern.data[:dictionary_items][service_id][dictionary_id][key] = dictionary_item
-
-    mock_response(dictionary_item)
+    cistern.upsert_dictionary_item(service_id, dictionary_id, key, value)
   end
 end

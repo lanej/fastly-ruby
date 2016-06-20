@@ -18,6 +18,17 @@ RSpec.describe 'DictionaryItem' do
     expect(item.dictionary_id).to eq(dictionary.id)
   end
 
+  it 'conflicts when creating duplicate items' do
+    key = SecureRandom.hex(3)
+    value = SecureRandom.hex(3)
+
+    dictionary.items.create(key: key, value: value)
+
+    expect {
+      dictionary.items.create(key: key, value: value)
+    }.to raise_exception(Fastly::Response::Conflict, /Duplicate record/)
+  end
+
   describe 'with a dictionary item' do
     let!(:dictionary_item) do
       dictionary.items.first ||
