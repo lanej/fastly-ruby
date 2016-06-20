@@ -134,8 +134,9 @@ module Fastly::Request
     )
   end
 
-  def find!(collection, *identities, **_options)
+  def find!(collection, *identities)
     resource = cistern.data[collection].dig(*identities)
+    resource = yield(resource) if block_given?
     return resource if resource
 
     identifier = identities.map(&:to_s).join(',')

@@ -12,7 +12,9 @@ class Fastly::CreateDictionaryItem
   parameter :value
 
   def mock
-    find!(:dictionaries, service_id)
+    find!(:dictionaries, service_id) do |sv|
+      sv.values.find { |d| d.values.find { |dict| dict['id'] == dictionary_id } }
+    end
 
     dictionary_item = {
       'item_key' => key,
