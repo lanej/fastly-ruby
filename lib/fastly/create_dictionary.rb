@@ -37,6 +37,8 @@ class Fastly::CreateDictionary
       'version' => number,
       'service_id' => service_id,
       'id' => cistern.new_id,
+      'created_at' => timestamp,
+      'updated_at' => timestamp,
     )
 
     self.class.validate(self, dictionary)

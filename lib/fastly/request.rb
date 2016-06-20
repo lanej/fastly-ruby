@@ -211,4 +211,8 @@ module Fastly::Request
   def updated_attributes
     Cistern::Hash.slice(Cistern::Hash.stringify_keys(attributes), *self.class.accepted_parameters)
   end
+
+  def timestamp
+    Time.now.iso8601
+  end
 end
