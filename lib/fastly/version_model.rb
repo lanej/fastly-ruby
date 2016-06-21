@@ -5,32 +5,27 @@ class Fastly::Version
   identity :id, alias: 'number', type: :integer
 
   # Whether this is the active version or not.
-  attribute :active,           type: :boolean
-  attribute :cache_settings,   type: :array
+  attribute :active, type: :boolean
+  # A comment.
   attribute :comment
-  attribute :conditions,       type: :array
-  attribute :created_at,       type: :time
-  attribute :deleted_at,       type: :time
-  attribute :deployed,         type: :boolean
-  attribute :directors,        type: :array
-  attribute :gzips,            type: :array
-  attribute :headers,          type: :array
-  attribute :healthchecks,     type: :array
+  # Time-stamp (GMT) when the version was created.
+  attribute :created_at, type: :time
+  # Time-stamp (GMT) when the version was deleted.
+  attribute :deleted_at, type: :time
+  # Whether or not this version is deployed.
+  attribute :deployed, type: :boolean
   # Whether this version is locked or not. Objects can not be added or edited on locked versions.
-  attribute :locked,           type: :boolean
-  attribute :matches,          type: :array
+  attribute :locked, type: :boolean
   # The number of this version.
-  attribute :number,           type: :integer
-  attribute :origins,          type: :array
-  attribute :request_settings, type: :array
-  attribute :response_objects, type: :array
+  attribute :number, type: :integer
+  # The alphanumeric string identifying a service.
   attribute :service_id
-  attribute :settings
-  attribute :staging,          type: :boolean
-  attribute :testing,          type: :boolean
-  attribute :updated_at,       type: :time
-  attribute :vcls,             type: :array
-  attribute :wordpress,        type: :array
+  # Whether or not this version is for staging.
+  attribute :staging, type: :boolean
+  # Whether or not this version is for testing.
+  attribute :testing, type: :boolean
+  # Time-stamp (GMT) when the version was updated.
+  attribute :updated_at, type: :time
 
   belongs_to :service, -> { cistern.services.get(service_id) }
 
