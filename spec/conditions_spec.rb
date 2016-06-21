@@ -44,5 +44,9 @@ RSpec.describe 'Conditions' do
       end.to change(condition, :statement).from(condition.statement).to(new_statement)
         .and change { copy.reload.statement } .from(condition.statement).to(new_statement)
     end
+
+    it 'lists' do
+      expect(version.conditions).to include(condition)
+    end
   end
 end
