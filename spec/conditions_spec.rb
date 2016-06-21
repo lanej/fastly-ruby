@@ -31,7 +31,7 @@ RSpec.describe 'Conditions' do
           type: 'CACHE',
           statement: 'req.url~+"index.html"',
           priority: 10,
-      )
+        )
     end
 
     it 'updates' do
@@ -50,9 +50,9 @@ RSpec.describe 'Conditions' do
     end
 
     it 'destroys' do
-      expect {
+      expect do
         condition.destroy
-      }.to change(condition, :reload).to(nil)
+      end.to change(condition, :reload).to(nil)
     end
   end
 end
