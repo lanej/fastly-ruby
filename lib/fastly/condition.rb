@@ -18,6 +18,14 @@ class Fastly::Condition
   # The current version of a service.
   attribute :version_number, type: :integer, alias: 'version'
 
+  def save
+    requires :service_id, :version_number, :name
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_condition(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
+  end
+
   def create
     requires :service_id, :version_number, :name
 

@@ -86,6 +86,8 @@ require 'fastly/condition'
 require 'fastly/conditions'
 require 'fastly/create_condition'
 require 'fastly/get_condition'
+require 'fastly/get_conditions'
+require 'fastly/update_condition'
 
 require 'fastly/real'
 require 'fastly/mock'
