@@ -83,16 +83,6 @@ class Fastly::Backend
     cistern.destroy_backend(service_id, version_number, identity)
   end
 
-  def reload
-    requires :service_id, :version_number, :identity
-
-    @_service = nil
-    @_version = nil
-
-    latest = cistern.backends(service_id: service_id, version_number: version_number).get(identity)
-    merge_attributes(latest.attributes) if latest
-  end
-
   def save
     requires :service_id, :version_number, :identity
 

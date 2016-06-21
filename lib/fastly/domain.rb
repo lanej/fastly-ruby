@@ -13,16 +13,6 @@ class Fastly::Domain
   # The current version of a service.
   attribute :version_number, type: :integer, alias: 'version'
 
-  def reload
-    requires :service_id, :version_number, :identity
-
-    @_service = nil
-    @_version = nil
-
-    latest = cistern.domains(service_id: service_id, version_number: version_number).get(identity)
-    merge_attributes(latest.attributes) if latest
-  end
-
   def create
     requires :service_id, :version_number, :name
 

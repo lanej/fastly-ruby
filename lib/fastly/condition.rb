@@ -33,17 +33,6 @@ class Fastly::Condition
     merge_attributes(response.body)
   end
 
-  def reload
-    requires :service_id, :version_number, :identity
-
-    @_service = nil
-    @_version = nil
-
-
-    latest = cistern.conditions(service_id: service_id, version_number: version_number).get(identity)
-    merge_attributes(latest.attributes) if latest
-  end
-
   def destroy
     requires :service_id, :version_number, :identity
 
