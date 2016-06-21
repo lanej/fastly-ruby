@@ -82,5 +82,10 @@ require 'fastly/get_dictionary_item'
 require 'fastly/upsert_dictionary_item'
 require 'fastly/destroy_dictionary_item'
 
+require 'fastly/condition'
+require 'fastly/conditions'
+require 'fastly/create_condition'
+require 'fastly/get_condition'
+
 require 'fastly/real'
 require 'fastly/mock'

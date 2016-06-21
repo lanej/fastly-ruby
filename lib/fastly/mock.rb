@@ -6,6 +6,7 @@ class Fastly::Mock
     @data ||= Hash.new do |d, url|
       d[url] = {
         backends: service_version_hash,
+        conditions: service_version_hash,
         customers: {},
         dictionaries: service_version_hash,
         dictionary_items: service_version_hash,
