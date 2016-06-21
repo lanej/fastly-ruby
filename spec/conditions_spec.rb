@@ -48,5 +48,11 @@ RSpec.describe 'Conditions' do
     it 'lists' do
       expect(version.conditions).to include(condition)
     end
+
+    it 'destroys' do
+      expect {
+        condition.destroy
+      }.to change(condition, :reload).to(nil)
+    end
   end
 end

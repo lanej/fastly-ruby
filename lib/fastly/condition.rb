@@ -45,4 +45,10 @@ class Fastly::Condition
   rescue Fastly::Response::NotFound
     nil
   end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_condition(service_id, version_number, identity)
+  end
 end
