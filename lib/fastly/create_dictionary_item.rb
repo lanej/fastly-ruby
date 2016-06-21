@@ -16,9 +16,9 @@ class Fastly::CreateDictionaryItem
 
     if existing_item
       mock_response({
-        'msg' => 'Duplicate record',
-        'detail' => "Duplicate dictionary_item: ",
-      }, { status: 409 })
+                      'msg' => 'Duplicate record',
+                      'detail' => 'Duplicate dictionary_item: ',
+                    }, { status: 409 })
     end
 
     cistern.upsert_dictionary_item(service_id, dictionary_id, key, value)

@@ -28,7 +28,7 @@ RSpec.describe 'Dictionary' do
     end
 
     it 'updates a dictionary' do
-      name = "fst_" + SecureRandom.hex(6)
+      name = 'fst_' + SecureRandom.hex(6)
 
       dictionary.update(name: name)
 
@@ -37,9 +37,9 @@ RSpec.describe 'Dictionary' do
     end
 
     it 'destroys a dictionary' do
-      expect {
+      expect do
         dictionary.destroy
-      }.to change { dictionary.reload }.to(nil)
+      end.to change { dictionary.reload }.to(nil)
     end
   end
 end

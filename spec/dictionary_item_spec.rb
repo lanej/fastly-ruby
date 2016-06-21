@@ -24,9 +24,9 @@ RSpec.describe 'DictionaryItem' do
 
     dictionary.items.create(key: key, value: value)
 
-    expect {
+    expect do
       dictionary.items.create(key: key, value: value)
-    }.to raise_exception(Fastly::Response::Conflict, /Duplicate record/)
+    end.to raise_exception(Fastly::Response::Conflict, /Duplicate record/)
   end
 
   describe 'with a dictionary item' do
@@ -46,9 +46,9 @@ RSpec.describe 'DictionaryItem' do
     end
 
     it 'destroys' do
-      expect {
+      expect do
         dictionary_item.destroy
-      }.to change { dictionary_item.reload }.to(nil)
+      end.to change { dictionary_item.reload }.to(nil)
     end
   end
 end
