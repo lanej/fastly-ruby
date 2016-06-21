@@ -22,4 +22,8 @@ class Fastly::Dictionaries
       cistern.get_dictionary(service_id, version_number, name).body
     )
   end
+
+  def create(**attributes)
+    new(attributes).tap(&:create)
+  end
 end
