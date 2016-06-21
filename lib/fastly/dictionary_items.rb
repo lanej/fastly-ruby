@@ -15,7 +15,7 @@ class Fastly::DictionaryItems
     )
   end
 
-  def get(key)
+  def get!(key)
     requires :service_id, :dictionary_id
 
     new(

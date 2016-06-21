@@ -15,7 +15,7 @@ class Fastly::Domains
     )
   end
 
-  def get(identity)
+  def get!(identity)
     requires :service_id, :version_number
 
     new(

@@ -35,12 +35,8 @@ class Fastly::Dictionary
 
     @_service = nil
     @_version = nil
-
-    merge_attributes(
-      cistern.dictionaries(service_id: service_id, version_number: version_number).get(name).attributes
-    )
-  rescue Fastly::Response::NotFound
-    nil
+    latest = cistern.dictionaries(service_id: service_id, version_number: version_number).get(name)
+    merge_attributes(latest.attributes) if latest
   end
 
   def create

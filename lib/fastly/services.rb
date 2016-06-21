@@ -14,10 +14,14 @@ class Fastly::Services
     load(resources)
   end
 
-  def get(identity)
+  def get!(identity)
     new(
       cistern.get_service(identity).body
     )
+  end
+
+  def get(identity)
+    get!(identity)
   rescue Fastly::Response::BadRequest
     nil
   end

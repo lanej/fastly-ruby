@@ -15,14 +15,12 @@ class Fastly::Backends
     )
   end
 
-  def get(identity)
+  def get!(identity)
     requires :service_id, :version_number
 
     new(
       cistern.get_backend(service_id, version_number, identity).body
     )
-  rescue Fastly::Response::NotFound
-    nil
   end
 
   def create(**attributes)

@@ -39,11 +39,8 @@ class Fastly::DictionaryItem
 
     @_service = nil
 
-    merge_attributes(
-      cistern.dictionary_items(service_id: service_id, dictionary_id: dictionary_id).get(key).attributes
-    )
-  rescue Fastly::Response::NotFound
-    nil
+    latest = cistern.dictionary_items(service_id: service_id, dictionary_id: dictionary_id).get(key)
+    merge_attributes(latest.attributes) if latest
   end
 
   def create

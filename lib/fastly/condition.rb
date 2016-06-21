@@ -39,11 +39,9 @@ class Fastly::Condition
     @_service = nil
     @_version = nil
 
-    merge_attributes(
-      cistern.conditions(service_id: service_id, version_number: version_number).get(identity).attributes
-    )
-  rescue Fastly::Response::NotFound
-    nil
+
+    latest = cistern.conditions(service_id: service_id, version_number: version_number).get(identity)
+    merge_attributes(latest.attributes) if latest
   end
 
   def destroy

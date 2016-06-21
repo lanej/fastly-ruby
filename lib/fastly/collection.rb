@@ -11,4 +11,10 @@ module Fastly::Collection
   def new(new_attributes = {})
     super(attributes.merge(new_attributes))
   end
+
+  def get(*args)
+    get!(*args)
+  rescue Fastly::Response::NotFound
+    nil
+  end
 end

@@ -14,7 +14,7 @@ class Fastly::Versions
     )
   end
 
-  def get(identity)
+  def get!(identity)
     requires :service_id
 
     new(

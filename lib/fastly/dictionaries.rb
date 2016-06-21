@@ -15,7 +15,7 @@ class Fastly::Dictionaries
     )
   end
 
-  def get(name)
+  def get!(name)
     requires :service_id, :version_number
 
     new(
