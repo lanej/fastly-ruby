@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Services' do
+RSpec.describe Fastly do
   it 'creates a service' do
     service_name = SecureRandom.hex(8)
     service = client.services.create(name: service_name)

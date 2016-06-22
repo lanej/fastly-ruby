@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Versions' do
+RSpec.describe Fastly do
   it 'creates a version' do
     service = a_service
     latest = service.versions.last
@@ -55,7 +55,7 @@ RSpec.describe 'Versions' do
   describe 'with an unlocked version' do
     let!(:version) { viable_version(locked: false) }
 
-    it 'activates' do
+    it 'locks' do
       expect { version.lock! }.to change(version, :locked).from(false).to(true)
 
       expect(version.reload).to be_locked

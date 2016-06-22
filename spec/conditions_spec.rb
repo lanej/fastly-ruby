@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Conditions' do
+RSpec.describe Fastly do
   let(:version) { a_version(locked: false) }
   let(:service) { version.service }
 
@@ -34,7 +34,7 @@ RSpec.describe 'Conditions' do
         )
     end
 
-    it 'updates' do
+    it 'updates a condition' do
       new_statement = 'vcl'
 
       copy = condition.dup
@@ -45,11 +45,11 @@ RSpec.describe 'Conditions' do
         .and change { copy.reload.statement } .from(condition.statement).to(new_statement)
     end
 
-    it 'lists' do
+    it 'lists conditions' do
       expect(version.conditions).to include(condition)
     end
 
-    it 'destroys' do
+    it 'destroys a condition' do
       expect do
         condition.destroy
       end.to change(condition, :reload).to(nil)

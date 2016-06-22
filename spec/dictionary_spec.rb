@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Dictionary' do
+RSpec.describe Fastly do
   it 'creates a dictionary' do
     version = a_version
 

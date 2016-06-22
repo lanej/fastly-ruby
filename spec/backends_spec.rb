@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Backends' do
+RSpec.describe Fastly do
   let(:version) { a_version(locked: false) }
   let(:service) { version.service }
 

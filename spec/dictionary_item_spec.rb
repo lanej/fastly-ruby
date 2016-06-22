@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'DictionaryItem' do
+RSpec.describe Fastly do
   let!(:dictionary) { a_dictionary }
   let!(:service)    { dictionary.service }
 

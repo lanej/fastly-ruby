@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe 'Users' do
+RSpec.describe Fastly do
   let(:client) { create_client }
 
   it 'fetches the current customer' do
