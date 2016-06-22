@@ -2,10 +2,10 @@
 class Fastly::UpdateDomain
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w( name comment ).freeze
+  ACCEPTED_PARAMETERS = %w(name comment).freeze
 
   request_method :put
-  request_path { |r| "/service/#{r.service_id}/version/#{r.number}/domain/#{name}" }
+  request_path { |r| "/service/#{r.service_id}/version/#{r.number}/domain/#{r.name}" }
   request_params(&:updated_attributes)
 
   parameter :service_id
