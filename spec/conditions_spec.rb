@@ -22,17 +22,7 @@ RSpec.describe Fastly do
   end
 
   describe 'with a condition' do
-    let(:condition) do
-      version.conditions.first ||
-        client.conditions.create(
-          service_id: service.id,
-          version_number: version.number,
-          name: SecureRandom.hex(3),
-          type: 'CACHE',
-          statement: 'req.url~+"index.html"',
-          priority: 10,
-        )
-    end
+    let(:condition) { a_condition(version: version) }
 
     it 'updates a condition' do
       new_statement = 'vcl'

@@ -66,6 +66,26 @@ module ServiceHelper
     version.domains.create(create_options)
   end
 
+  def a_condition(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_condition = version.conditions.find do |condition|
+      options.all? { |k, v| v == condition.attributes[k] }
+    end
+
+    return matching_condition if matching_condition
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+      type: 'CACHE',
+      statement: 'req.url~+"index.html"',
+      priority: 10,
+    }.merge(options)
+
+    version.conditions.create(create_options)
+  end
+
   def a_dictionary(**options)
     version = options.delete(:version) || a_version(options)
     matching_dictionary = version.dictionaries.find do |dictionary|
