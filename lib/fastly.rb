@@ -98,5 +98,10 @@ require 'fastly/get_directors'
 require 'fastly/update_director'
 require 'fastly/destroy_director'
 
+require 'fastly/header'
+require 'fastly/headers'
+require 'fastly/create_header'
+require 'fastly/get_header'
+
 require 'fastly/real'
 require 'fastly/mock'

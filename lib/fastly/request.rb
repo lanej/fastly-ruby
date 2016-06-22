@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module Fastly::Request
+  AN_ERROR_OCCURRED = 'An error occurred while connecting to the fastly API, please try your request again.'
+
   class << self
     alias cistern_included included
   end
