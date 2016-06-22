@@ -37,4 +37,11 @@ class Fastly::Director
     response = cistern.create_director(service_id, version_number, attributes)
     merge_attributes(response.body)
   end
+
+  def save
+    requires :service_id, :version_number, :identity
+
+    response = cistern.update_director(service_id, version_number, name, dirty_attributes)
+    merge_attributes(response.body)
+  end
 end

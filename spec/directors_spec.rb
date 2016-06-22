@@ -31,5 +31,14 @@ RSpec.describe Fastly do
     it 'lists directors' do
       expect(client.directors(service_id: version.service_id, version_number: version.number)).to include(director)
     end
+
+    it 'updates a director' do
+      comment = SecureRandom.hex(6)
+
+      director.update(comment: comment)
+
+      expect(director.comment).to eq(comment)
+      expect(director.reload.comment).to eq(comment)
+    end
   end
 end
