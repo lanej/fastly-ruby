@@ -94,6 +94,7 @@ require 'fastly/director'
 require 'fastly/directors'
 require 'fastly/create_director'
 require 'fastly/get_director'
+require 'fastly/get_directors'
 
 require 'fastly/real'
 require 'fastly/mock'

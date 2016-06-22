@@ -17,4 +17,19 @@ RSpec.describe Fastly do
     expect(director.name).to eq(name)
     expect(director.reload.name).to eq(name)
   end
+
+  describe 'with a director' do
+    let!(:director) { a_director(version: version) }
+    let!(:service) { version.service }
+
+    it 'fetches the director' do
+      expect(
+        client.directors(service_id: version.service_id, version_number: version.number).get(director.identity)
+      ).to eq(director)
+    end
+
+    it 'lists directors' do
+      expect(client.directors(service_id: version.service_id, version_number: version.number)).to include(director)
+    end
+  end
 end

@@ -103,6 +103,23 @@ module ServiceHelper
     version.dictionaries.create(create_options)
   end
 
+  def a_director(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_director = version.directors.find do |director|
+      options.all? { |k, v| v == director.attributes[k] }
+    end
+
+    return matching_director if matching_director
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+    }.merge(options)
+
+    version.directors.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }
