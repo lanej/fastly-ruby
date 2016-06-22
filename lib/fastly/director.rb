@@ -38,6 +38,12 @@ class Fastly::Director
     merge_attributes(response.body)
   end
 
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_director(service_id, version_number, identity)
+  end
+
   def save
     requires :service_id, :version_number, :identity
 

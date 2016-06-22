@@ -96,6 +96,7 @@ require 'fastly/create_director'
 require 'fastly/get_director'
 require 'fastly/get_directors'
 require 'fastly/update_director'
+require 'fastly/destroy_director'
 
 require 'fastly/real'
 require 'fastly/mock'

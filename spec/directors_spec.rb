@@ -40,5 +40,11 @@ RSpec.describe Fastly do
       expect(director.comment).to eq(comment)
       expect(director.reload.comment).to eq(comment)
     end
+
+    it 'destroys a director' do
+      director.destroy
+
+      expect(director.reload).to eq(nil)
+    end
   end
 end
