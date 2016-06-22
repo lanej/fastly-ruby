@@ -10,6 +10,7 @@ class Fastly::Mock
         customers: {},
         dictionaries: service_version_hash,
         dictionary_items: service_version_hash,
+        directors: service_version_hash,
         domains: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},
