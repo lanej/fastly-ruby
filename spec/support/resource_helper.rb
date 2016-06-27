@@ -87,7 +87,7 @@ module ServiceHelper
   end
 
   def a_dictionary(**options)
-    version = options.delete(:version) || a_version(options)
+    version = options.delete(:version) || a_version({ locked: false }.merge(options))
     matching_dictionary = version.dictionaries.find do |dictionary|
       options.all? { |k, v| v == dictionary.attributes[k] }
     end

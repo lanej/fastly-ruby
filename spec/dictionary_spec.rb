@@ -3,7 +3,7 @@ require 'spec_helper'
 
 RSpec.describe Fastly do
   it 'creates a dictionary' do
-    version = a_version
+    version = a_version(locked: false)
 
     name = 'f' + SecureRandom.hex(3)
     expect(
