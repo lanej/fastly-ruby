@@ -58,7 +58,7 @@ module ServiceHelper
     return matching_domain if matching_domain
 
     create_options = {
-      name: SecureRandom.hex(3),
+      name: "#{SecureRandom.hex(8)}-example.com",
       service_id: version.service_id,
       version_number: version.number,
     }.merge(options)

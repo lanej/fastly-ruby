@@ -6,7 +6,7 @@ RSpec.describe Fastly do
   let(:service) { version.service }
 
   it 'creates a domain' do
-    name = SecureRandom.hex(3)
+    name = "#{SecureRandom.hex(8)}-example.com"
 
     domain = client.domains.create(
       service_id: service.id,
