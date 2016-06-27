@@ -120,6 +120,27 @@ module ServiceHelper
     version.directors.create(create_options)
   end
 
+  def a_header(**options)
+    version = options.delete(:version) || a_version({ locked: false }.merge(options))
+    matching_header = version.headers.find do |header|
+      options.all? { |k, v| v == header.attributes[k] }
+    end
+
+    return matching_header if matching_header
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+      type: :request,
+      action: :set,
+      dst: 'http.x-fastly-client-src',
+      src: 'server.identity',
+    }.merge(options)
+
+    version.headers.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }
