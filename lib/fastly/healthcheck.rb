@@ -18,7 +18,7 @@ class Fastly::Healthcheck
   # When loading a config, the initial number of probes to be seen as OK.
   attribute :initial, type: :integer
   # Which HTTP method to use.
-  attribute :method
+  attribute :http_method, alias: 'method'
   # The path to check.
   attribute :path
   # The alphanumeric string identifying a service.
