@@ -25,7 +25,7 @@ RSpec.describe Fastly do
     let(:condition) { a_condition(version: version) }
 
     it 'updates a condition' do
-      new_statement = 'vcl'
+      new_statement = SecureRandom.uuid
 
       copy = condition.dup
 
