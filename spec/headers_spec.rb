@@ -21,4 +21,19 @@ RSpec.describe Fastly do
     expect(header.name).to eq(name)
     expect(header.reload.name).to eq(name)
   end
+
+  describe 'with a header' do
+    let(:header) { a_header(version: version) }
+
+    it 'updates a header' do
+      new_dst = "http.x-fastly-client-#{SecureRandom.hex(6)}"
+
+      copy = header.dup
+
+      expect do
+        header.update(dst: new_dst)
+      end.to change(header, :dst).from(header.dst).to(new_dst)
+        .and change { copy.reload.dst } .from(header.dst).to(new_dst)
+    end
+  end
 end

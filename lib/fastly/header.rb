@@ -47,4 +47,12 @@ class Fastly::Header
     response = cistern.create_header(service_id, version_number, attributes)
     merge_attributes(response.body)
   end
+
+  def save
+    requires :name, :service_id, :version_number
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_header(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
+  end
 end
