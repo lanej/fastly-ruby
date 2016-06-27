@@ -55,4 +55,10 @@ class Fastly::Header
     response = cistern.update_header(service_id, version_number, old_name, dirty_attributes)
     merge_attributes(response.body)
   end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_header(service_id, version_number, identity)
+  end
 end

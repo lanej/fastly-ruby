@@ -104,6 +104,7 @@ require 'fastly/create_header'
 require 'fastly/get_header'
 require 'fastly/get_headers'
 require 'fastly/update_header'
+require 'fastly/destroy_header'
 
 require 'fastly/real'
 require 'fastly/mock'

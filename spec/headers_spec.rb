@@ -39,5 +39,11 @@ RSpec.describe Fastly do
     it 'lists headers' do
       expect(version.headers).to include(header)
     end
+
+    it 'destroys a header' do
+      expect do
+        header.destroy
+      end.to change(header, :reload).to(nil)
+    end
   end
 end
