@@ -7,6 +7,7 @@ RSpec.describe Fastly do
 
   it 'creates a healthcheck' do
     name = SecureRandom.hex(3)
+    http_method = 'PUT'
 
     healthcheck = client.healthchecks.create(
       service_id: service.id,
@@ -14,9 +15,15 @@ RSpec.describe Fastly do
       name: name,
       host: 'example.com',
       path: '/test.txt',
+      http_method: http_method,
     )
 
     expect(healthcheck.name).to eq(name)
-    expect(healthcheck.reload.name).to eq(name)
+    expect(healthcheck.http_method).to eq(http_method)
+
+    healthcheck.reload
+
+    expect(healthcheck.name).to eq(name)
+    expect(healthcheck.http_method).to eq(http_method)
   end
 end
