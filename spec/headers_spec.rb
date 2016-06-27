@@ -35,5 +35,9 @@ RSpec.describe Fastly do
       end.to change(header, :dst).from(header.dst).to(new_dst)
         .and change { copy.reload.dst } .from(header.dst).to(new_dst)
     end
+
+    it 'lists headers' do
+      expect(version.headers).to include(header)
+    end
   end
 end
