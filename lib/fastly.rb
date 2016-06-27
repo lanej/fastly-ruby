@@ -106,5 +106,10 @@ require 'fastly/get_headers'
 require 'fastly/update_header'
 require 'fastly/destroy_header'
 
+require 'fastly/healthcheck'
+require 'fastly/healthchecks'
+require 'fastly/create_healthcheck'
+require 'fastly/get_healthcheck'
+
 require 'fastly/real'
 require 'fastly/mock'
