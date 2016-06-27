@@ -38,4 +38,12 @@ class Fastly::Healthcheck
     response = cistern.create_healthcheck(service_id, version_number, attributes)
     merge_attributes(response.body)
   end
+
+  def save
+    requires :service_id, :version_number, :name
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_healthcheck(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
+  end
 end

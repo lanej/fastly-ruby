@@ -141,6 +141,25 @@ module ServiceHelper
     version.headers.create(create_options)
   end
 
+  def a_healthcheck(**options)
+    version = options.delete(:version) || a_version({ locked: false }.merge(options))
+    matching_healthcheck = version.healthchecks.find do |healthcheck|
+      options.all? { |k, v| v == healthcheck.attributes[k] }
+    end
+
+    return matching_healthcheck if matching_healthcheck
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+      host: 'example.com',
+      path: '/test.txt',
+    }.merge(options)
+
+    version.healthchecks.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }

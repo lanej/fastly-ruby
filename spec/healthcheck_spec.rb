@@ -26,4 +26,23 @@ RSpec.describe Fastly do
     expect(healthcheck.name).to eq(name)
     expect(healthcheck.http_method).to eq(http_method)
   end
+
+  describe 'with a healthcheck' do
+    let(:healthcheck) { a_healthcheck(version: version) }
+
+    it 'updates a healthcheck' do
+      new_http_method = (%w(PUT HEAD) - [healthcheck.http_method]).first
+
+      copy = healthcheck.dup
+
+      expect do
+        healthcheck.update(http_method: new_http_method)
+      end.to change(healthcheck, :http_method).from(healthcheck.http_method).to(new_http_method)
+        .and change { copy.reload.http_method } .from(healthcheck.http_method).to(new_http_method)
+    end
+
+    it 'lists healthchecks' do
+      expect(version.healthchecks).to include(healthcheck)
+    end
+  end
 end
