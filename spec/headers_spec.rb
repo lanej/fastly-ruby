@@ -13,7 +13,9 @@ RSpec.describe Fastly do
       version_number: version.number,
       name: name,
       type: :request,
-      dst: 'http.bar',
+      action: :set,
+      dst: 'http.x-fastly-client-src',
+      src: 'server.identity',
     )
 
     expect(header.name).to eq(name)
