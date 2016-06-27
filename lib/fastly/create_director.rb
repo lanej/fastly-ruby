@@ -6,7 +6,7 @@ class Fastly::CreateDirector
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/director" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -14,8 +14,8 @@ class Fastly::CreateDirector
 
   def mock
     find!(:service_versions, service_id, number.to_i)
-    name = updated_attributes.fetch('name')
-    director = updated_attributes.merge(
+    name = accepted_attributes.fetch('name')
+    director = accepted_attributes.merge(
       'version' => number,
       'service_id' => service_id,
       'updated_at' => timestamp,

@@ -6,7 +6,7 @@ class Fastly::UpdateCondition
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/condition/#{r.name}" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -15,7 +15,7 @@ class Fastly::UpdateCondition
 
   def mock
     condition = find!(:conditions, service_id, number.to_i, name)
-    condition.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))
+    condition.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
 
     mock_response(condition)
   end

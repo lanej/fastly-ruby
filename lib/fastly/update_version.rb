@@ -6,7 +6,7 @@ class Fastly::UpdateVersion
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -15,7 +15,7 @@ class Fastly::UpdateVersion
   def mock
     find!(:services, service_id)
     version = cistern.data[:service_versions][service_id].fetch(number.to_i)
-    version.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))
+    version.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
 
     mock_response(version)
   end

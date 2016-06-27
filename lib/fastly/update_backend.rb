@@ -10,7 +10,7 @@ class Fastly::UpdateBackend
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/backend/#{r.name}" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -19,7 +19,7 @@ class Fastly::UpdateBackend
 
   def mock
     backend = find!(:backends, service_id, number.to_i, name)
-    backend.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))
+    backend.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
 
     mock_response(backend)
   end

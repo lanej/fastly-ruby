@@ -6,7 +6,7 @@ class Fastly::CreateDomain
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/domain" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -14,8 +14,8 @@ class Fastly::CreateDomain
 
   def mock
     find!(:service_versions, service_id, number.to_i)
-    name = updated_attributes.fetch('name')
-    domain = updated_attributes.merge('version' => number, 'service_id' => service_id)
+    name = accepted_attributes.fetch('name')
+    domain = accepted_attributes.merge('version' => number, 'service_id' => service_id)
     cistern.data[:domains][service_id][number.to_i][name] = domain
 
     mock_response(domain)

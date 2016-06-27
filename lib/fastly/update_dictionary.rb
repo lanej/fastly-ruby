@@ -6,7 +6,7 @@ class Fastly::UpdateDictionary
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/dictionary/#{r.name}" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -16,11 +16,11 @@ class Fastly::UpdateDictionary
   def mock
     dictionary = find!(:dictionaries, service_id, number.to_i, name)
 
-    updated = dictionary.merge(updated_attributes)
+    updated = dictionary.merge(accepted_attributes)
 
     Fastly::CreateDictionary.validate(self, updated)
 
-    updated.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))
+    updated.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
     new_name = updated['name']
 
     parent = find!(:dictionaries, service_id, number.to_i)

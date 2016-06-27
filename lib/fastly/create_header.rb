@@ -10,7 +10,7 @@ class Fastly::CreateHeader
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/header" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -18,8 +18,8 @@ class Fastly::CreateHeader
 
   def mock
     find!(:service_versions, service_id, number.to_i)
-    name = updated_attributes.fetch('name')
-    header = updated_attributes.merge('version' => number, 'service_id' => service_id)
+    name = accepted_attributes.fetch('name')
+    header = accepted_attributes.merge('version' => number, 'service_id' => service_id)
 
     REQUIRED_PARAMETERS.each do |field|
       next if header[field]

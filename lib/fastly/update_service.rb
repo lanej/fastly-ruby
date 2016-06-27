@@ -6,14 +6,14 @@ class Fastly::UpdateService
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :attributes
 
   def mock
     resource = find!(:services, service_id)
-    resource.merge!(updated_attributes)
+    resource.merge!(accepted_attributes)
 
     mock_response(resource)
   end

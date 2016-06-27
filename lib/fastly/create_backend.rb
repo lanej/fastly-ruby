@@ -10,7 +10,7 @@ class Fastly::CreateBackend
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/backend" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -19,8 +19,8 @@ class Fastly::CreateBackend
   def mock
     find!(:service_versions, service_id, number.to_i)
 
-    backend = updated_attributes.merge('version' => number.to_i)
-    cistern.data[:backends][service_id][number.to_i][updated_attributes.fetch('name')] = backend
+    backend = accepted_attributes.merge('version' => number.to_i)
+    cistern.data[:backends][service_id][number.to_i][accepted_attributes.fetch('name')] = backend
 
     mock_response(backend)
   end

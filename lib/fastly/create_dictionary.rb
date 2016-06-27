@@ -6,7 +6,7 @@ class Fastly::CreateDictionary
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/dictionary" }
-  request_params(&:updated_attributes)
+  request_params(&:accepted_attributes)
 
   parameter :service_id
   parameter :number
@@ -29,7 +29,7 @@ class Fastly::CreateDictionary
   def mock
     find!(:service_versions, service_id, number.to_i)
 
-    dictionary = updated_attributes.merge(
+    dictionary = accepted_attributes.merge(
       'version' => number,
       'service_id' => service_id,
       'id' => cistern.new_id,
