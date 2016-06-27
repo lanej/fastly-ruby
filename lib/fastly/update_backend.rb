@@ -19,7 +19,7 @@ class Fastly::UpdateBackend
 
   def mock
     backend = find!(:backends, service_id, number.to_i, name)
-    backend.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    backend.merge!(accepted_attributes.merge('updated_at' => timestamp))
 
     mock_response(backend)
   end

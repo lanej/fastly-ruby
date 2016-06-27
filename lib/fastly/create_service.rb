@@ -16,8 +16,8 @@ class Fastly::CreateService
       'customer_id' => cistern.current_customer.identity,
       'comment'     => '',
       'publish_key' => cistern.new_id,
-      'created_at'  => Time.now.iso8601.to_s,
-      'updated_at'  => Time.now.iso8601.to_s,
+      'created_at'  => timestamp,
+      'updated_at'  => timestamp,
     }
 
     version = {
@@ -32,8 +32,8 @@ class Fastly::CreateService
       'comment'    => '',
       'deleted_at' => nil,
       'service'    => service_id,
-      'created_at' => Time.now.iso8601,
-      'updated_at' => Time.now.iso8601,
+      'created_at' => timestamp,
+      'updated_at' => timestamp,
     }
 
     cistern.data[:service_versions][service_id][1] = version

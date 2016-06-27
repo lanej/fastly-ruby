@@ -15,7 +15,7 @@ class Fastly::UpdateDomain
 
   def mock
     domain = find!(:domains, service_id, number.to_i, name)
-    domain.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    domain.merge!(accepted_attributes.merge('updated_at' => timestamp))
 
     mock_response(domain)
   end

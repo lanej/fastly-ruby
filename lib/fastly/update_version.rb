@@ -15,7 +15,7 @@ class Fastly::UpdateVersion
   def mock
     find!(:services, service_id)
     version = cistern.data[:service_versions][service_id].fetch(number.to_i)
-    version.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    version.merge!(accepted_attributes.merge('updated_at' => timestamp))
 
     mock_response(version)
   end

@@ -15,7 +15,7 @@ class Fastly::UpdateDirector
 
   def mock
     director = find!(:directors, service_id, number.to_i, name)
-    director.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    director.merge!(accepted_attributes.merge('updated_at' => timestamp))
 
     mock_response(director)
   end

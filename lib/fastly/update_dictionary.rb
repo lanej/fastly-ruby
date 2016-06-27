@@ -20,7 +20,7 @@ class Fastly::UpdateDictionary
 
     Fastly::CreateDictionary.validate(self, updated)
 
-    updated.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    updated.merge!(accepted_attributes.merge('updated_at' => timestamp))
     new_name = updated['name']
 
     parent = find!(:dictionaries, service_id, number.to_i)

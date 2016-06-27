@@ -15,7 +15,7 @@ class Fastly::UpdateCondition
 
   def mock
     condition = find!(:conditions, service_id, number.to_i, name)
-    condition.merge!(accepted_attributes.merge('updated_at' => Time.now.iso8601))
+    condition.merge!(accepted_attributes.merge('updated_at' => timestamp))
 
     mock_response(condition)
   end
