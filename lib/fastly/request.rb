@@ -220,6 +220,6 @@ module Fastly::Request
   end
 
   def timestamp
-    Time.now.iso8601
+    Time.now.iso8601.to_s
   end
 end
