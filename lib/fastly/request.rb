@@ -33,6 +33,10 @@ module Fastly::Request
       @parameters ||= []
     end
 
+    def accepted_parameters
+      const_get(:ACCEPTED_PARAMETERS)
+    end
+
     def parameter(name)
       parameters << name
 

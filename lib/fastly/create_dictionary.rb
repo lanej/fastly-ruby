@@ -2,7 +2,7 @@
 class Fastly::CreateDictionary
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w( name ).freeze
+  ACCEPTED_PARAMETERS = %w(name).freeze
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/dictionary" }
@@ -11,10 +11,6 @@ class Fastly::CreateDictionary
   parameter :service_id
   parameter :number
   parameter :attributes
-
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
 
   def self.validate(request, dictionary)
     name = dictionary['name']

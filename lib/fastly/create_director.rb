@@ -2,7 +2,7 @@
 class Fastly::CreateDirector
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w( name quorum retries type capacity comment shield capacity ).freeze
+  ACCEPTED_PARAMETERS = %w(name quorum retries type capacity comment shield capacity).freeze
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/director" }
@@ -11,10 +11,6 @@ class Fastly::CreateDirector
   parameter :service_id
   parameter :number
   parameter :attributes
-
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
 
   def mock
     find!(:service_versions, service_id, number.to_i)

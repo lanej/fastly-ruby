@@ -2,7 +2,7 @@
 class Fastly::CreateCondition
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w( name priority statement type comment ).freeze
+  ACCEPTED_PARAMETERS = %w(name priority statement type comment).freeze
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/condition" }
@@ -11,10 +11,6 @@ class Fastly::CreateCondition
   parameter :service_id
   parameter :number
   parameter :attributes
-
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
 
   def mock
     find!(:service_versions, service_id, number.to_i)

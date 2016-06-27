@@ -2,6 +2,8 @@
 class Fastly::UpdateVersion
   include Fastly::Request
 
+  ACCEPTED_PARAMETERS = %w(comment testing staging deployed).freeze
+
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}" }
   request_params(&:updated_attributes)
@@ -9,10 +11,6 @@ class Fastly::UpdateVersion
   parameter :service_id
   parameter :number
   parameter :attributes
-
-  def self.accepted_parameters
-    %w(comment testing staging deployed)
-  end
 
   def mock
     find!(:services, service_id)

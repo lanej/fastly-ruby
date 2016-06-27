@@ -13,10 +13,6 @@ class Fastly::UpdateDomain
   parameter :name
   parameter :attributes
 
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
-
   def mock
     domain = find!(:domains, service_id, number.to_i, name)
     domain.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))

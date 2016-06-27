@@ -2,7 +2,7 @@
 class Fastly::UpdateDictionary
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w( name ).freeze
+  ACCEPTED_PARAMETERS = %w(name).freeze
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/dictionary/#{r.name}" }
@@ -12,10 +12,6 @@ class Fastly::UpdateDictionary
   parameter :number
   parameter :name
   parameter :attributes
-
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
 
   def mock
     dictionary = find!(:dictionaries, service_id, number.to_i, name)

@@ -5,16 +5,10 @@ class Fastly::CreateVersion
   request_path { |r| "/service/#{r.service_id}/version" }
   request_params(&:updated_attributes)
 
-  def self.accepted_parameters
-    %w(comment testing staging deployed)
-  end
+  ACCEPTED_PARAMETERS = %w(comment testing staging deployed).freeze
 
   parameter :service_id
   parameter :attributes
-
-  def updated_attributes
-    Cistern::Hash.slice(Cistern::Hash.stringify_keys(attributes), *self.class.accepted_parameters)
-  end
 
   def mock
     find!(:services, service_id)

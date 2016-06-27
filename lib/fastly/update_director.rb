@@ -13,10 +13,6 @@ class Fastly::UpdateDirector
   parameter :name
   parameter :attributes
 
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
-
   def mock
     director = find!(:directors, service_id, number.to_i, name)
     director.merge!(updated_attributes.merge('updated_at' => Time.now.iso8601))

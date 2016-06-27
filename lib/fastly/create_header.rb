@@ -16,10 +16,6 @@ class Fastly::CreateHeader
   parameter :number
   parameter :attributes
 
-  def self.accepted_parameters
-    ACCEPTED_PARAMETERS
-  end
-
   def mock
     find!(:service_versions, service_id, number.to_i)
     name = updated_attributes.fetch('name')
