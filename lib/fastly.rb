@@ -119,6 +119,7 @@ require 'fastly/request_setting'
 require 'fastly/request_settings'
 require 'fastly/create_request_setting'
 require 'fastly/get_request_setting'
+require 'fastly/get_request_settings'
 
 require 'fastly/real'
 require 'fastly/mock'

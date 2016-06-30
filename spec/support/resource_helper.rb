@@ -120,6 +120,23 @@ module ServiceHelper
     version.directors.create(create_options)
   end
 
+  def a_request_setting(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_request_setting = version.request_settings.find do |request_setting|
+      options.all? { |k, v| v == request_setting.attributes[k] }
+    end
+
+    return matching_request_setting if matching_request_setting
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+    }.merge(options)
+
+    version.request_settings.create(create_options)
+  end
+
   def a_header(**options)
     version = options.delete(:version) || a_version({ locked: false }.merge(options))
     matching_header = version.headers.find do |header|

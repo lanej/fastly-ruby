@@ -17,4 +17,12 @@ RSpec.describe Fastly do
     expect(request_setting.name).to eq(name)
     expect(request_setting.reload.name).to eq(name)
   end
+
+  describe 'with a request_setting' do
+    let(:request_setting) { a_request_setting(version: version) }
+
+    it 'lists request_settings' do
+      expect(version.request_settings).to include(request_setting)
+    end
+  end
 end
