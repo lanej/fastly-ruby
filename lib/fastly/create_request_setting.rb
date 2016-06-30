@@ -2,7 +2,8 @@
 class Fastly::CreateRequestSetting
   include Fastly::Request
 
-  ACCEPTED_PARAMETERS = %w(name priority statement type comment).freeze
+  ACCEPTED_PARAMETERS = %w( action bypass_busy_wait default_host force_miss force_ssl geo_headers hash_keys
+                            max_stale_age condition_name timer_support xff name ).freeze
 
   request_method :post
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/request_settings" }
