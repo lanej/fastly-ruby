@@ -23,7 +23,7 @@ class Fastly::RequestSetting
   # How old an object is allowed to be to serve stale-if-error or stale-while-revalidate.
   attribute :max_stale_age, type: :integer
   # Name of condition object used to test whether or not these settings should be used.
-  attribute :request_condition_name, alias: 'request_condition'
+  attribute :condition_name, alias: 'request_condition'
   # The alphanumeric string identifying a service.
   attribute :service_id
   # Injects the X-Timer info into the request for viewing origin fetch durations
