@@ -14,6 +14,7 @@ class Fastly::Mock
         domains: service_version_hash,
         headers: service_version_hash,
         healthchecks: service_version_hash,
+        request_settings: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},
       }

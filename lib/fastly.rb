@@ -115,5 +115,10 @@ require 'fastly/get_healthchecks'
 require 'fastly/update_healthcheck'
 require 'fastly/destroy_healthcheck'
 
+require 'fastly/request_setting'
+require 'fastly/request_settings'
+require 'fastly/create_request_setting'
+require 'fastly/get_request_setting'
+
 require 'fastly/real'
 require 'fastly/mock'
