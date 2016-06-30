@@ -7,6 +7,7 @@ module Fastly::ServiceVersionModel
 
     receiver.belongs_to :service, -> { cistern.services.get(service_id) }
     receiver.belongs_to :version, -> { cistern.versions(service_id: service_id).get(version_number) }
+    receiver.ignore_attributes :service, :version
 
     receiver.include(ServiceVersionCollection)
 
