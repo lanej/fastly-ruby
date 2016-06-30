@@ -46,4 +46,10 @@ class Fastly::Healthcheck
     response = cistern.update_healthcheck(service_id, version_number, old_name, dirty_attributes)
     merge_attributes(response.body)
   end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_healthcheck(service_id, version_number, identity)
+  end
 end

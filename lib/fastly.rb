@@ -112,6 +112,7 @@ require 'fastly/create_healthcheck'
 require 'fastly/get_healthcheck'
 require 'fastly/get_healthchecks'
 require 'fastly/update_healthcheck'
+require 'fastly/destroy_healthcheck'
 
 require 'fastly/real'
 require 'fastly/mock'

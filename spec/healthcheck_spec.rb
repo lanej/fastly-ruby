@@ -44,5 +44,11 @@ RSpec.describe Fastly do
     it 'lists healthchecks' do
       expect(version.healthchecks).to include(healthcheck)
     end
+
+    it 'destroys a healthcheck' do
+      expect do
+        healthcheck.destroy
+      end.to change(healthcheck, :reload).to(nil)
+    end
   end
 end
