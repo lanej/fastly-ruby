@@ -51,4 +51,10 @@ class Fastly::RequestSetting
     response = cistern.create_request_setting(service_id, version_number, attributes)
     merge_attributes(response.body)
   end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_request_setting(service_id, version_number, identity)
+  end
 end

@@ -35,5 +35,11 @@ RSpec.describe Fastly do
     it 'lists request_settings' do
       expect(version.request_settings).to include(request_setting)
     end
+
+    it 'destroys a request_setting' do
+      expect do
+        request_setting.destroy
+      end.to change(request_setting, :reload).to(nil)
+    end
   end
 end
