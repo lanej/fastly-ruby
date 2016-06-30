@@ -33,6 +33,10 @@ class Fastly::RequestSetting
   # Short for X-Forwarded-For, should be clear, leave, append, append_all, or overwrite.
   attribute :xff
 
+  belongs_to :condition, lambda {
+    cistern.conditions(service_id: service_id, version_number: version_number).get(condition_name)
+  }
+
   def create
     requires :service_id, :version_number, :name
 
