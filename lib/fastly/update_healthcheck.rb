@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 class Fastly::UpdateHealthcheck
   include Fastly::Request
-
-  ACCEPTED_PARAMETERS = %w( check_interval comment expected_response host http_version initial http_method method meta
-                            name path service_id threshold timeout version window ).freeze
+  include Fastly::HealthcheckRequest
 
   request_method :put
   request_path { |r| "/service/#{r.service_id}/version/#{r.number}/healthcheck/#{r.name}" }

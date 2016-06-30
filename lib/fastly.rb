@@ -108,6 +108,7 @@ require 'fastly/destroy_header'
 
 require 'fastly/healthcheck'
 require 'fastly/healthchecks'
+require 'fastly/healthcheck_request'
 require 'fastly/create_healthcheck'
 require 'fastly/get_healthcheck'
 require 'fastly/get_healthchecks'

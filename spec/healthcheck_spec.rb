@@ -7,7 +7,7 @@ RSpec.describe Fastly do
 
   it 'creates a healthcheck' do
     name = SecureRandom.hex(3)
-    http_method = 'PUT'
+    http_method = 'POST'
 
     healthcheck = client.healthchecks.create(
       service_id: service.id,
@@ -31,7 +31,7 @@ RSpec.describe Fastly do
     let(:healthcheck) { a_healthcheck(version: version) }
 
     it 'updates a healthcheck' do
-      new_http_method = (%w(PUT HEAD) - [healthcheck.http_method]).first
+      new_http_method = (%w(POST HEAD GET) - [healthcheck.http_method]).first
 
       copy = healthcheck.dup
 
