@@ -37,6 +37,14 @@ class Fastly::RequestSetting
     cistern.conditions(service_id: service_id, version_number: version_number).get(condition_name)
   }
 
+  def save
+    requires :service_id, :version_number, :name
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_request_setting(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
+  end
+
   def create
     requires :service_id, :version_number, :name
 

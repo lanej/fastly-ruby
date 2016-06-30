@@ -21,6 +21,17 @@ RSpec.describe Fastly do
   describe 'with a request_setting' do
     let(:request_setting) { a_request_setting(version: version) }
 
+    it 'updates a request_setting' do
+      new_name = SecureRandom.uuid
+
+      copy = request_setting.dup
+
+      expect do
+        request_setting.update(name: new_name)
+      end.to change(request_setting, :name).from(request_setting.name).to(new_name)
+        .and change { copy.reload }.to(nil)
+    end
+
     it 'lists request_settings' do
       expect(version.request_settings).to include(request_setting)
     end
