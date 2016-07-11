@@ -17,6 +17,7 @@ class Fastly::Mock
         request_settings: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},
+        settings: Hash.new { |sv, s| sv[s] = {} },
       }
     end
   end

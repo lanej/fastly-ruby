@@ -123,5 +123,9 @@ require 'fastly/get_request_settings'
 require 'fastly/update_request_setting'
 require 'fastly/destroy_request_setting'
 
+require 'fastly/settings'
+require 'fastly/get_settings'
+require 'fastly/update_settings'
+
 require 'fastly/real'
 require 'fastly/mock'

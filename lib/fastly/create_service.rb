@@ -38,6 +38,7 @@ class Fastly::CreateService
 
     cistern.data[:service_versions][service_id][1] = version
     cistern.data[:services][service_id] = new_service
+    cistern.data[:settings][service_id][1] = { 'general.default_host' => '', 'general.default_ttl' => 3600 }
 
     mock_response(new_service.merge('versions' => [version]))
   end

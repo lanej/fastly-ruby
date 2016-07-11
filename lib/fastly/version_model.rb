@@ -28,6 +28,7 @@ class Fastly::Version
   attribute :updated_at, type: :time
 
   belongs_to :service, -> { cistern.services.get(service_id) }
+  belongs_to :settings, -> { cistern.settings(service_id: service_id, version_number: number).load }
 
   has_many :domains,      -> { cistern.domains(service_id: service_id, version_number: number) }
   has_many :backends,     -> { cistern.backends(service_id: service_id, version_number: number) }
