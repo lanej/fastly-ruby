@@ -30,6 +30,7 @@ class Fastly::Version
   belongs_to :service, -> { cistern.services.get(service_id) }
   belongs_to :settings, -> { cistern.settings(service_id: service_id, version_number: number).load }
 
+  has_many :acls, -> { cistern.acls(service_id: service_id, version_number: number) }
   has_many :domains,      -> { cistern.domains(service_id: service_id, version_number: number) }
   has_many :backends,     -> { cistern.backends(service_id: service_id, version_number: number) }
   has_many :dictionaries, -> { cistern.dictionaries(service_id: service_id, version_number: number) }

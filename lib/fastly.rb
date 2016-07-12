@@ -127,5 +127,13 @@ require 'fastly/settings'
 require 'fastly/get_settings'
 require 'fastly/update_settings'
 
+require 'fastly/acl'
+require 'fastly/acls'
+require 'fastly/create_acl'
+require 'fastly/get_acls'
+require 'fastly/get_acl'
+require 'fastly/update_acl'
+require 'fastly/destroy_acl'
+
 require 'fastly/real'
 require 'fastly/mock'

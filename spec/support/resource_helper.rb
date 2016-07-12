@@ -31,6 +31,23 @@ module ServiceHelper
     client.services.create(name: name)
   end
 
+  def a_acl(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_acl = version.acls.find do |acl|
+      options.all? { |k, v| v == acl.attributes[k] }
+    end
+
+    return matching_acl if matching_acl
+
+    create_options = {
+      name: 'fst_' + SecureRandom.hex(3),
+      service_id: version.service_id,
+      version_number: version.number,
+    }.merge(options)
+
+    version.acls.create(create_options)
+  end
+
   def a_backend(**options)
     version = options.delete(:version) || a_version(options)
     matching_backend = version.backends.find do |backend|
