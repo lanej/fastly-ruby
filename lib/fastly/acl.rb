@@ -11,6 +11,8 @@ class Fastly::Acl
   attribute :updated_at, type: :time
   attribute :deleted_at, type: :time
 
+  has_many :entries, -> { cistern.acl_entries(acl_id: id, service_id: service_id) }
+
   def save
     id.nil? ? create : patch
   end

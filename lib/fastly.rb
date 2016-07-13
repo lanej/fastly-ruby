@@ -135,5 +135,13 @@ require 'fastly/get_acl'
 require 'fastly/update_acl'
 require 'fastly/destroy_acl'
 
+require 'fastly/acl_entry'
+require 'fastly/acl_entries'
+require 'fastly/create_acl_entry'
+require 'fastly/get_acl_entries'
+require 'fastly/get_acl_entry'
+require 'fastly/update_acl_entry'
+require 'fastly/destroy_acl_entry'
+
 require 'fastly/real'
 require 'fastly/mock'

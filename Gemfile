@@ -8,6 +8,7 @@ gem 'rubocop', '~> 0.40', require: false
 
 group :test do
   gem 'awesome_print', '~> 1.0'
-  gem 'rspec', '~> 3.2'
+  gem 'faker'
   gem 'pry-nav'
+  gem 'rspec', '~> 3.2'
 end

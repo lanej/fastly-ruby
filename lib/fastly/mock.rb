@@ -6,6 +6,7 @@ class Fastly::Mock
     @data ||= Hash.new do |d, url|
       d[url] = {
         acls: service_version_hash,
+        acl_entries: service_version_hash,
         backends: service_version_hash,
         conditions: service_version_hash,
         customers: {},

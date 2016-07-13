@@ -32,7 +32,7 @@ module ServiceHelper
   end
 
   def a_acl(**options)
-    version = options.delete(:version) || a_version(options)
+    version = options.delete(:version) || a_version({ locked: false }.merge(options))
     matching_acl = version.acls.find do |acl|
       options.all? { |k, v| v == acl.attributes[k] }
     end
