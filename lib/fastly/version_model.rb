@@ -30,15 +30,15 @@ class Fastly::Version
   belongs_to :service, -> { cistern.services.get(service_id) }
   belongs_to :settings, -> { cistern.settings(service_id: service_id, version_number: number).load }
 
-  has_many :acls, -> { cistern.acls(service_id: service_id, version_number: number) }
-  has_many :domains,      -> { cistern.domains(service_id: service_id, version_number: number) }
-  has_many :backends,     -> { cistern.backends(service_id: service_id, version_number: number) }
-  has_many :dictionaries, -> { cistern.dictionaries(service_id: service_id, version_number: number) }
-  has_many :conditions,   -> { cistern.conditions(service_id: service_id, version_number: number) }
-  has_many :directors,    -> { cistern.directors(service_id: service_id, version_number: number) }
-  has_many :gzips, -> { cistern.gzips(service_id: service_id, version_number: number) }
-  has_many :headers,      -> { cistern.headers(service_id: service_id, version_number: number) }
-  has_many :healthchecks, -> { cistern.healthchecks(service_id: service_id, version_number: number) }
+  has_many :acls,             -> { cistern.acls(service_id: service_id, version_number: number) }
+  has_many :backends,         -> { cistern.backends(service_id: service_id, version_number: number) }
+  has_many :conditions,       -> { cistern.conditions(service_id: service_id, version_number: number) }
+  has_many :dictionaries,     -> { cistern.dictionaries(service_id: service_id, version_number: number) }
+  has_many :directors,        -> { cistern.directors(service_id: service_id, version_number: number) }
+  has_many :domains,          -> { cistern.domains(service_id: service_id, version_number: number) }
+  has_many :gzips,            -> { cistern.gzips(service_id: service_id, version_number: number) }
+  has_many :headers,          -> { cistern.headers(service_id: service_id, version_number: number) }
+  has_many :healthchecks,     -> { cistern.healthchecks(service_id: service_id, version_number: number) }
   has_many :request_settings, -> { cistern.request_settings(service_id: service_id, version_number: number) }
 
   ignore_attributes :service
