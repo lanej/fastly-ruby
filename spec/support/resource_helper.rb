@@ -154,6 +154,23 @@ module ServiceHelper
     version.request_settings.create(create_options)
   end
 
+  def a_gzip(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_gzip = version.gzips.find do |gzip|
+      options.all? { |k, v| v == gzip.attributes[k] }
+    end
+
+    return matching_gzip if matching_gzip
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+    }.merge(options)
+
+    version.gzips.create(create_options)
+  end
+
   def a_header(**options)
     version = options.delete(:version) || a_version({ locked: false }.merge(options))
     matching_header = version.headers.find do |header|

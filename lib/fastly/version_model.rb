@@ -36,6 +36,7 @@ class Fastly::Version
   has_many :dictionaries, -> { cistern.dictionaries(service_id: service_id, version_number: number) }
   has_many :conditions,   -> { cistern.conditions(service_id: service_id, version_number: number) }
   has_many :directors,    -> { cistern.directors(service_id: service_id, version_number: number) }
+  has_many :gzips, -> { cistern.gzips(service_id: service_id, version_number: number) }
   has_many :headers,      -> { cistern.headers(service_id: service_id, version_number: number) }
   has_many :healthchecks, -> { cistern.healthchecks(service_id: service_id, version_number: number) }
   has_many :request_settings, -> { cistern.request_settings(service_id: service_id, version_number: number) }
