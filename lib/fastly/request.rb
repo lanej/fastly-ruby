@@ -94,29 +94,10 @@ module Fastly::Request
     end
   end
 
-  def pluralize(word)
-    pluralized = word.dup
-    [[/y$/, 'ies'], [/$/, 's']].find { |regex, replace| pluralized.gsub!(regex, replace) if pluralized.match(regex) }
-    pluralized
-  end
-
-  def url_for(path, options = {})
-    URI.parse(
-      File.join(cistern.url, path.to_s)
-    ).tap do |uri|
-      query = options[:query]
-
-      if query && query.any?
-        uri.query = Faraday::NestedParamsEncoder.encode(query)
-      end
-    end.to_s
-  end
-
   def real(params = {})
     request(method: self.class.request_method,
             path: request_path,
             body: request_body,
-            url: params['url'],
             params: request_params)
   end
 
@@ -191,6 +172,16 @@ module Fastly::Request
     ).raise!
   end
 
+  def accepted_attributes
+    Cistern::Hash.slice(Cistern::Hash.stringify_keys(attributes), *self.class.accepted_parameters)
+  end
+
+  def timestamp
+    Time.now.iso8601.to_s
+  end
+
+  private
+
   def response(options = {})
     body   = options[:response_body] || options[:body]
     method = options[:method]        || :get
@@ -215,11 +206,16 @@ module Fastly::Request
     ).raise!
   end
 
-  def accepted_attributes
-    Cistern::Hash.slice(Cistern::Hash.stringify_keys(attributes), *self.class.accepted_parameters)
+  def url_for(path, options = {})
+    URI.parse(
+      File.join(cistern.url, path.to_s)
+    ).tap do |uri|
+      query = options[:query]
+
+      if query && query.any?
+        uri.query = Faraday::NestedParamsEncoder.encode(query)
+      end
+    end.to_s
   end
 
-  def timestamp
-    Time.now.iso8601.to_s
-  end
 end
