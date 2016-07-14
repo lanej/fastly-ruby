@@ -143,5 +143,10 @@ require 'fastly/get_acl_entry'
 require 'fastly/update_acl_entry'
 require 'fastly/destroy_acl_entry'
 
+require 'fastly/gzip'
+require 'fastly/gzips'
+require 'fastly/create_gzip'
+require 'fastly/get_gzip'
+
 require 'fastly/real'
 require 'fastly/mock'
