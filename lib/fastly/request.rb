@@ -37,12 +37,14 @@ module Fastly::Request
       const_get(:ACCEPTED_PARAMETERS)
     end
 
-    def parameter(name)
-      parameters << name
+    def parameter(*names)
+      names.each do |name|
+        parameters << name
 
-      define_method(name) do
-        val = instance_variable_get("@#{name}")
-        val.nil? ? raise(ArgumentError, "#{name} is required") : val
+        define_method(name) do
+          val = instance_variable_get("@#{name}")
+          val.nil? ? raise(ArgumentError, "#{name} is required") : val
+        end
       end
     end
   end
