@@ -96,19 +96,11 @@ module Fastly::Request
     end
   end
 
-  def real(params = {})
+  def real
     request(method: self.class.request_method,
             path: request_path,
             body: request_body,
             params: request_params)
-  end
-
-  def real_request(params = {})
-    request({
-      method: self.class.request_method,
-      path: request_path(params),
-      body: request_body(params),
-    }.merge(cistern.hash.slice(params, :method, :path, :body, :headers)))
   end
 
   def mock_response(body, options = {})
@@ -219,5 +211,4 @@ module Fastly::Request
       end
     end.to_s
   end
-
 end
