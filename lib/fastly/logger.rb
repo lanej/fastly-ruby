@@ -3,7 +3,7 @@ class Fastly::Logger
   include Fastly::ServiceVersionModel
 
   def self.for(type)
-    types.fetch(type.to_sym)
+    types.fetch(type.to_s)
   end
 
   def self.types
@@ -14,9 +14,10 @@ class Fastly::Logger
     if type.nil?
       @type
     else
-      Fastly::Loggers.add_type(type.to_sym)
-      Fastly::Logger.types[type.to_sym] = self
-      (@type = type)
+      (@type = type.to_s)
+      Fastly::Loggers.add_type(@type)
+      raise ArgumentError, "already defined: #{@type}" if Fastly::Logger.types[@type]
+      Fastly::Logger.types[@type] = self
     end
   end
 
@@ -30,11 +31,16 @@ class Fastly::Logger
   attribute :created_at, type: :time
   # Time-stamp (GMT) when the endpoint was deleted.
   attribute :deleted_at, type: :time
+  # Apache style log formatting (default (defaults to '%h %l %u %t "%r" %>s %b').
+  attribute :format, type: :string
+  attribute :format_version, type: :integer
   # What level of GZIP encoding to have when dumping logs (default 0, no compression).
   attribute :gzip_level, type: :integer
   attribute :message_type
   # How frequently the logs should be dumped (in seconds, default 3600).
   attribute :period, type: :integer
+  # When to execute the GCS logging rule. If empty, always execute.
+  attribute :response_condition, type: :string
   # The alphanumeric string identifying a service.
   attribute :service_id
   # strftime specified timestamp formatting (default "%Y-%m-%dT%H:%M:%S.000").
@@ -66,4 +72,14 @@ class Fastly::Logger
 end
 
 require 'fastly/loggers'
+
+require 'fastly/cloud_files'
+require 'fastly/ftp'
+require 'fastly/gcs'
+require 'fastly/log_shuttle'
+require 'fastly/logentries'
+require 'fastly/openstack'
+require 'fastly/papertrail'
 require 'fastly/s3'
+require 'fastly/sumo_logic'
+require 'fastly/syslog'

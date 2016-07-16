@@ -9,15 +9,10 @@ class Fastly::S3 < Fastly::Logger
   attribute :bucket_name
   # The domain of the Amazon S3 endpoint.
   attribute :domain
-  # Apache style log formatting.
-  attribute :format
-  attribute :format_version
   # The path to upload logs to.
   attribute :path
   # The S3 redundancy level.
   attribute :redundancy
-  # When to execute the s3. If empty, always execute.
-  attribute :response_condition
   # Your S3 account secret key.
   attribute :secret_key
   # Optional server-side KMS Key Id. Must be set if server_side_encryption is set to aws:kms
