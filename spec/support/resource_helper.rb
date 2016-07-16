@@ -211,6 +211,24 @@ module ServiceHelper
     version.healthchecks.create(create_options)
   end
 
+  def a_logger(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_logger = version.loggers.s3.find do |logger|
+      options.all? { |k, v| v == logger.attributes[k] }
+    end
+
+    return matching_logger if matching_logger
+
+    create_options = {
+      name: SecureRandom.hex(8),
+      service_id: version.service_id,
+      version_number: version.number,
+      type: :s3,
+    }.merge(options)
+
+    version.loggers.s3.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }

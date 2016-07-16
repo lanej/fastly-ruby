@@ -5,8 +5,8 @@ class Fastly::Mock
   def self.data
     @data ||= Hash.new do |d, url|
       d[url] = {
-        acls: service_version_hash,
         acl_entries: service_version_hash,
+        acls: service_version_hash,
         backends: service_version_hash,
         conditions: service_version_hash,
         customers: {},
@@ -17,6 +17,7 @@ class Fastly::Mock
         gzips: service_version_hash,
         headers: service_version_hash,
         healthchecks: service_version_hash,
+        loggers: service_version_hash,
         request_settings: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},

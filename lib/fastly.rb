@@ -151,5 +151,13 @@ require 'fastly/get_gzips'
 require 'fastly/update_gzip'
 require 'fastly/destroy_gzip'
 
+require 'fastly/logger'
+require 'fastly/loggers'
+require 'fastly/create_logger'
+require 'fastly/get_logger'
+require 'fastly/get_loggers'
+require 'fastly/update_logger'
+require 'fastly/destroy_logger'
+
 require 'fastly/real'
 require 'fastly/mock'
