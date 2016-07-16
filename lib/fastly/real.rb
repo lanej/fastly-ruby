@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 class Fastly::Real
+
+  DEFAULT_URL = 'https://api.fastly.com'
+
   attr_reader :via, :logger, :adapter, :username, :password, :token, :url, :connection
 
   def initialize(options = {})
     @username, @password, @token, @url, @adapter, @logger =
       options.values_at(:username, :password, :token, :url, :adapter, :logger)
 
-    if !(token || '').empty?
-      @via = :token
-    elsif (username || '').empty? && (password || '').empty?
-      raise ArgumentError, 'missing token or [username, password]'
-    else
-      @via = :session
-    end
+    @via = []
 
-    @url ||= 'https://api.fastly.com'
+    @via << :token unless (token || '').empty?
+    @via << :username unless (username || '').empty? && (password || '').empty?
+
+    raise ArgumentError, 'missing token or [username, password]' if @via.empty?
+
+    @url ||= DEFAULT_URL
     @adapter ||= Faraday.default_adapter
 
     @connection = create_connection
@@ -27,11 +29,8 @@ class Fastly::Real
       # request
       connection.request :multipart
 
-      if via == :session
-        connection.use :cookie_jar
-      else
-        connection.use Fastly::TokenMiddleware, token
-      end
+      connection.use :cookie_jar if via.include?(:session)
+      connection.use Fastly::TokenMiddleware, token if via.include?(:token)
 
       # idempotency
       connection.request :retry,
