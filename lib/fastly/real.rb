@@ -48,3 +48,10 @@ class Fastly::Real
     end
   end
 end
+
+require 'faraday'
+require 'faraday_middleware'
+require 'faraday/detailed_logger'
+require 'faraday/cookie_jar'
+require 'fastly/token_middleware'
+require 'fastly/login'

@@ -5,9 +5,6 @@ require 'logger'
 require 'securerandom'
 
 require 'cistern'
-require 'faraday'
-require 'faraday_middleware'
-require 'faraday/detailed_logger'
 
 module Fastly
   include Cistern::Client.with(interface: :module)
@@ -17,7 +14,6 @@ module Fastly
   recognizes :username, :password, :token, :url, :adapter, :logger
 end
 
-require 'fastly/token_middleware'
 require 'fastly/response'
 require 'fastly/request'
 require 'fastly/collection'
