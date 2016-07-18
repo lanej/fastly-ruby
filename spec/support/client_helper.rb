@@ -20,8 +20,8 @@ module ClientHelper
     when :credentials then
       username, password = options.values_at(:username, :password)
 
-      username ||= Fastly.mocking ? SecureRandom.hex(6) : ENV.fetch('FASTLY_USERNAME')
-      password ||= Fastly.mocking ? SecureRandom.hex(8) : ENV.fetch('FASTLY_PASSWORD')
+      username ||= Fastly.mocking? ? SecureRandom.hex(6) : ENV.fetch('FASTLY_USERNAME')
+      password ||= Fastly.mocking? ? SecureRandom.hex(8) : ENV.fetch('FASTLY_PASSWORD')
 
       client_options[:username] = username
       client_options[:password] = password

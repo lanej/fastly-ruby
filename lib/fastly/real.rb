@@ -12,20 +12,20 @@ class Fastly::Real
     @via = []
 
     @via << :token unless (token || '').empty?
-    @via << :username unless (username || '').empty? && (password || '').empty?
+    @via << :session unless (username || '').empty? && (password || '').empty?
 
     raise ArgumentError, 'missing token or [username, password]' if @via.empty?
 
     @url ||= DEFAULT_URL
     @adapter ||= Faraday.default_adapter
 
-    @connection = create_connection
+    create_connection
   end
 
   private
 
   def create_connection
-    Faraday.new(url: url) do |connection|
+    @connection ||= Faraday.new(url: url) do |connection|
       # request
       connection.request :multipart
 
@@ -46,6 +46,8 @@ class Fastly::Real
 
       connection.adapter(*adapter)
     end
+
+    login(username, password) if via.include?(:session)
   end
 end
 
