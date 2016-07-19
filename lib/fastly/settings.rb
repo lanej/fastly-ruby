@@ -22,15 +22,4 @@ class Fastly::Settings
   def get
     merge_attributes(cistern.get_settings(service_id, version_number).body)
   end
-
-  def dirty_request_attributes
-    request_attributes(dirty_attributes)
-  end
-
-  def request_attributes(set = attributes)
-    set.inject({}) do |_a, (k, v)|
-      aliases = self.class.attributes[k][:aliases] || [k]
-      aliases.each_with_object({}) { |n, r| r[n.to_s] = v }
-    end
-  end
 end
