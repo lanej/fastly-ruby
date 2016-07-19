@@ -16,6 +16,7 @@ RSpec.describe Fastly do
 
     it 'fetches the version' do
       expect(client.versions(service_id: version.service_id).get(version.identity)).to eq(version)
+      expect(client.services.get(version.service_id).versions.get(version.identity)).to eq(version)
     end
 
     it 'lists versions' do
