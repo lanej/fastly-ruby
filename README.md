@@ -1,15 +1,13 @@
-# Fastly
+# fastly-ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fastly`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Ruby Client Wrapper for the Fastly API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'fastly'
+gem 'fastly', '~> 2.0'
 ```
 
 And then execute:
@@ -22,7 +20,67 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+### Authentication
+
+Using [tokens](https://docs.fastly.com/api/auth#tokens).
+
+```ruby
+fastly = Fastly.new(token: "7601336ecb649ea53f6016f3ee0ea55980b803e9")
+```
+
+Using username / password
+
+```ruby
+fastly = Fastly.new(username: "jlane@fastly.com", password: "password")
+```
+
+
+### Examples
+
+```ruby
+services = fastly.services.all          # list services
+service  = fastly.services.get(name)    # get a service
+versions = service.versions.all         # list versions for a service
+version  = service.versions.get(number) # get a version via service
+
+# get a version directly
+version = fastly.versions(service_id: "41yx1aD1FKtapOjKVa0Dtc").get(1)
+
+# get a version directly without the model
+response = fastly.get_version("41yx1aD1FKtapOjKVa0Dtc", 1) #=> #<Fastly::Response>
+response.status #=> 200
+response.headers #=>
+{
+            "status" => "200 OK",
+      "content-type" => "application/json",
+     "cache-control" => "no-cache",
+               "via" => "1.1 varnish, 1.1 varnish",
+    "content-length" => "176",
+              "date" => "Tue, 19 Jul 2016 23:14:13 GMT",
+        "connection" => "close",
+       "x-served-by" => "app-stg-sjc3543-STG, cache-stg-sjc3546-STG",
+           "x-cache" => "MISS, MISS",
+      "x-cache-hits" => "0, 0",
+           "x-timer" => "S1468970053.530374,VS0,VE116",
+              "vary" => "Accept-Encoding"
+}
+response.body #=>
+{
+       "testing" => false,
+        "locked" => false,
+        "number" => 1,
+        "active" => false,
+    "service_id" => "41yx1aD1FKtapOjKVa0Dtc",
+       "staging" => false,
+    "created_at" => "2016-07-18T18:36:18+00:00",
+    "deleted_at" => nil,
+       "comment" => "",
+    "updated_at" => "2016-07-18T18:36:18+00:00",
+      "deployed" => false
+}
+```
+
 
 ## Development
 
