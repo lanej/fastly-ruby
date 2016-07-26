@@ -2,8 +2,9 @@
 require 'spec_helper'
 
 RSpec.describe Fastly do
-  let(:version) { a_version(locked: false) }
-  let(:service) { version.service }
+  let(:version)   { a_version(locked: false) }
+  let(:service)   { version.service }
+  let(:condition) { a_condition(version: version) }
 
   it 'creates a request_setting' do
     name = SecureRandom.hex(3)
@@ -12,6 +13,7 @@ RSpec.describe Fastly do
       service_id: service.id,
       version_number: version.number,
       name: name,
+      condition_name: condition.name,
     )
 
     expect(request_setting.name).to eq(name)
@@ -19,7 +21,7 @@ RSpec.describe Fastly do
   end
 
   describe 'with a request_setting' do
-    let(:request_setting) { a_request_setting(version: version) }
+    let!(:request_setting) { a_request_setting(version: version) }
 
     it 'updates a request_setting' do
       new_name = SecureRandom.uuid
@@ -33,7 +35,7 @@ RSpec.describe Fastly do
     end
 
     it 'lists request_settings' do
-      expect(version.request_settings).to include(request_setting)
+      expect(version.request_settings.all).to include(request_setting)
     end
 
     it 'destroys a request_setting' do

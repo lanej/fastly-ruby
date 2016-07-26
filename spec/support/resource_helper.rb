@@ -139,6 +139,8 @@ module ServiceHelper
 
   def a_request_setting(**options)
     version = options.delete(:version) || a_version(options)
+    condition = options.delete(:condition) || a_condition(options.merge(version: version))
+    options[:condition_name] = condition.name
     matching_request_setting = version.request_settings.find do |request_setting|
       options.all? { |k, v| v == request_setting.attributes[k] }
     end
