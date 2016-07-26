@@ -28,7 +28,7 @@ RSpec.describe Fastly do
   end
 
   describe 'with a healthcheck' do
-    let(:healthcheck) { a_healthcheck(version: version) }
+    let!(:healthcheck) { a_healthcheck(version: version) }
 
     it 'updates a healthcheck' do
       new_http_method = (%w(POST HEAD GET) - [healthcheck.http_method]).first
@@ -42,7 +42,7 @@ RSpec.describe Fastly do
     end
 
     it 'lists healthchecks' do
-      expect(version.healthchecks).to include(healthcheck)
+      expect(version.healthchecks.all).to include(healthcheck)
     end
 
     it 'destroys a healthcheck' do

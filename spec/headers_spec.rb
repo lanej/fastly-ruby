@@ -23,7 +23,7 @@ RSpec.describe Fastly do
   end
 
   describe 'with a header' do
-    let(:header) { a_header(version: version) }
+    let!(:header) { a_header(version: version) }
 
     it 'updates a header' do
       new_dst = "http.x-fastly-client-#{SecureRandom.hex(6)}"
@@ -37,7 +37,7 @@ RSpec.describe Fastly do
     end
 
     it 'lists headers' do
-      expect(version.headers).to include(header)
+      expect(version.headers.all).to include(header)
     end
 
     it 'destroys a header' do

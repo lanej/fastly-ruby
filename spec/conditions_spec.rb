@@ -22,7 +22,7 @@ RSpec.describe Fastly do
   end
 
   describe 'with a condition' do
-    let(:condition) { a_condition(version: version) }
+    let!(:condition) { a_condition(version: version) }
 
     it 'updates a condition' do
       new_statement = SecureRandom.uuid
@@ -36,7 +36,7 @@ RSpec.describe Fastly do
     end
 
     it 'lists conditions' do
-      expect(version.conditions).to include(condition)
+      expect(version.conditions.all).to include(condition)
     end
 
     it 'destroys a condition' do
