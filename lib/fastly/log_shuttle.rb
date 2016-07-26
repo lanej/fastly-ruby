@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::LogShuttle < Fastly::Logger
-
   type :logshuttle
 
   # The data authentication token associated with this endpoint.

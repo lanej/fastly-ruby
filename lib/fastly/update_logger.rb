@@ -9,7 +9,7 @@ class Fastly::UpdateLogger
   parameter :service_id, :number, :type, :name, :attributes
 
   def accepted_attributes
-    Cistern::Hash.except(Cistern::Hash.stringify_keys(attributes), "type")
+    Cistern::Hash.except(Cistern::Hash.stringify_keys(attributes), 'type')
   end
 
   def mock

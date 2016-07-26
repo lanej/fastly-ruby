@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Ftp < Fastly::Logger
-
   type :ftp
 
   # An hostname or IPv4 address.

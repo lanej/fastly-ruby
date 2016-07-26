@@ -9,9 +9,9 @@ class Fastly::GetLoggers
 
   def mock
     find!(:loggers, service_id, number.to_i)
-    loggers = cistern.data.dig(:loggers, service_id, number.to_i).values.select { |logger|
-      logger["type"] == type.to_s
-    }
+    loggers = cistern.data.dig(:loggers, service_id, number.to_i).values.select do |logger|
+      logger['type'] == type.to_s
+    end
 
     mock_response(loggers)
   end

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Syslog < Fastly::Logger
-
   type :syslog
 
   # A hostname or IPv4 address.
@@ -19,5 +18,4 @@ class Fastly::Syslog < Fastly::Logger
   attribute :token, type: :string
   # Whether to use TLS for secure logging.
   attribute :use_tls, type: :boolean
-
 end

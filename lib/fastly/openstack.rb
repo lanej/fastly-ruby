@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Openstack < Fastly::Logger
-
   type :openstack
 
   # Your OpenStack account access key.

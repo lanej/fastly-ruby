@@ -67,7 +67,7 @@ class Fastly::Mock
     base_16_id = SecureRandom.uuid.delete('-').to_i(16)
 
     id = []
-    while base_16_id > 0
+    while base_16_id.positive?
       id << KEYSPACE[base_16_id.modulo(62)]
       base_16_id /= 62
     end

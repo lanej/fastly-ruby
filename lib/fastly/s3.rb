@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::S3 < Fastly::Logger
-
   type :s3
 
   # Your S3 account access key.

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::CloudFiles < Fastly::Logger
-
   type :cloudfiles
 
   # Your Cloudfile account access key.
@@ -11,5 +10,4 @@ class Fastly::CloudFiles < Fastly::Logger
   attribute :path, type: :string
   # The username for your Cloudfile account.
   attribute :user, type: :string
-
 end

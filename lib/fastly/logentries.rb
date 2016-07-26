@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Logentries < Fastly::Logger
-
   type :logentries
 
   # The port number.

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Real
-
   DEFAULT_URL = 'https://api.fastly.com'
 
   attr_reader :via, :logger, :adapter, :username, :password, :token, :url, :connection

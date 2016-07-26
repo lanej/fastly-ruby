@@ -10,7 +10,7 @@ class Fastly::Logger
     @types ||= {}
   end
 
-  def self.type(type=nil)
+  def self.type(type = nil)
     if type.nil?
       @type
     else

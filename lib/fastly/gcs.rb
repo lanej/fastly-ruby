@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Fastly::Gcs < Fastly::Logger
-
   type :gcs
 
   # The bucket of the GCS bucket.
