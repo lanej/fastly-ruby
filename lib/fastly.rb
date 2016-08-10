@@ -18,7 +18,6 @@ require 'fastly/response'
 require 'fastly/request'
 require 'fastly/collection'
 require 'fastly/service_version_model'
-require 'fastly/model'
 
 require 'fastly/customer'
 require 'fastly/customers'
