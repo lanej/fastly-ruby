@@ -10,7 +10,7 @@ class Fastly::CloneVersion
 
   def mock
     service_versions = find!(:service_versions, service_id)
-    version = find!(:service_versions, service_id, number.to_i)
+    version = find!(:service_versions, service_id, number.to_i).dup
     latest = service_versions.keys.max + 1
 
     service_versions[latest] = version.merge!('number' => latest)
