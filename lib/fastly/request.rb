@@ -51,7 +51,7 @@ module Fastly::Request
 
   attr_reader :params
 
-  def setup(*args)
+  def call(*args)
     if args.size > self.class.parameters.size
       raise ArgumentError, "too many arguments for parameters: #{self.class.parameters}"
     end
@@ -59,16 +59,8 @@ module Fastly::Request
     args.each_with_index do |arg, i|
       instance_variable_set("@#{self.class.parameters[i]}", arg)
     end
-  end
 
-  def _mock(*args)
-    setup(*args)
-    mock
-  end
-
-  def _real(*args)
-    setup(*args)
-    real
+    dispatch
   end
 
   def request_params
