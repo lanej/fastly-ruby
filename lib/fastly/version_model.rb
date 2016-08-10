@@ -58,6 +58,10 @@ class Fastly::Version
     merge_attributes(response.body)
   end
 
+  def diff(other_version)
+    cistern.diff(from_version: self, to_version: other_version, service_id: service_id).load
+  end
+
   def clone!
     requires :service_id, :number
 

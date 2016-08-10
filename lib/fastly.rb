@@ -155,5 +155,8 @@ require 'fastly/get_loggers'
 require 'fastly/update_logger'
 require 'fastly/destroy_logger'
 
+require 'fastly/diff'
+require 'fastly/get_version_diff'
+
 require 'fastly/real'
 require 'fastly/mock'
