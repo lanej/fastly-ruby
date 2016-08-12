@@ -41,6 +41,7 @@ class Fastly::Version
   has_many :healthchecks,     -> { cistern.healthchecks(service_id: service_id, version_number: number) }
   has_many :loggers,          -> { cistern.loggers(service_id: service_id, version_number: number) }
   has_many :request_settings, -> { cistern.request_settings(service_id: service_id, version_number: number) }
+  has_many :response_objects, -> { cistern.response_objects(service_id: service_id, version_number: number) }
 
   ignore_attributes :service
 

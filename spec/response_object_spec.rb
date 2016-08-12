@@ -21,4 +21,12 @@ RSpec.describe Fastly do
     expect(response_object.name).to eq(name)
     expect(response_object.reload.name).to eq(name)
   end
+
+  describe 'with a response_object' do
+    let!(:response_object) { a_response_object(version: version) }
+
+    it 'lists response_objects' do
+      expect(version.response_objects.all).to include(response_object)
+    end
+  end
 end

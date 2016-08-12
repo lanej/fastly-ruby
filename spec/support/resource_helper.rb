@@ -231,6 +231,27 @@ module ServiceHelper
     version.loggers.s3.create(create_options)
   end
 
+  def a_response_object(**options)
+    version = options.delete(:version) || a_version(options)
+    matching_response_object = version.response_objects.find do |response_object|
+      options.all? { |k, v| v == response_object.attributes[k] }
+    end
+
+    return matching_response_object if matching_response_object
+
+    create_options = {
+      service_id: service.id,
+      version_number: version.number,
+      name: SecureRandom.hex(3),
+      content_type: 'application/json',
+      status: '404',
+      response: 'ok',
+      content: "{'error': ['not found']}",
+    }.merge(options)
+
+    version.response_objects.create(create_options)
+  end
+
   def a_service(options = {})
     return create_service(options) if Fastly.mocking?
     cached_service = ServiceHelper.service { client.services.all }
