@@ -18,7 +18,12 @@ class Fastly::CreateResponseObject
     cache_condition_name = response_object['cache_condition']
 
     if cache_condition_name
-      find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }
+      cache_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }
+
+      mock_response({
+                      'msg' => AN_ERROR_OCCURRED,
+                      'detail' => "Condition '#{cache_condition_name}' is not a request condition",
+                    }, { status: 400 }) unless cache_condition['type'] == 'CACHE'
     end
 
     request_condition_name = response_object['request_condition']

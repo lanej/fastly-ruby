@@ -49,6 +49,13 @@ RSpec.describe Fastly do
     end.to raise_error(Fastly::Response::BadRequest, /Condition '#{condition.name}' is not a request condition/)
   end
 
+  it 'does not create response_object with a cache condition with an invalid type' do
+    condition = a_condition(version: version, type: 'RESPONSE')
+    expect do
+      client.response_objects.create(create_attributes(cache_condition: condition.name))
+    end.to raise_error(Fastly::Response::BadRequest, /Condition '#{condition.name}' is not a request condition/)
+  end
+
   describe 'with a response_object' do
     let!(:response_object) { a_response_object(version: version) }
 
