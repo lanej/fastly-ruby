@@ -157,5 +157,10 @@ require 'fastly/destroy_logger'
 require 'fastly/diff'
 require 'fastly/get_version_diff'
 
+require 'fastly/response_object'
+require 'fastly/response_objects'
+require 'fastly/create_response_object'
+require 'fastly/get_response_object'
+
 require 'fastly/real'
 require 'fastly/mock'

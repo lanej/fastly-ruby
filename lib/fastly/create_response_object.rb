@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+class Fastly::CreateResponseObject
+  include Fastly::Request
+
+  ACCEPTED_PARAMETERS = %w(name cache_condition content content_type status response request_condition).freeze
+
+  request_method :post
+  request_path { |r| "/service/#{r.service_id}/version/#{r.number}/response_object" }
+  request_params(&:accepted_attributes)
+
+  parameter :service_id, :number, :attributes
+
+  def mock
+    find!(:service_versions, service_id, number.to_i)
+    name = accepted_attributes.fetch('name')
+    response_object = accepted_attributes.merge('version' => number, 'service_id' => service_id)
+    cistern.data[:response_objects][service_id][number.to_i][name] = response_object
+
+    mock_response(response_object)
+  end
+end

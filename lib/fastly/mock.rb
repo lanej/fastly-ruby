@@ -19,6 +19,7 @@ class Fastly::Mock
         healthchecks: service_version_hash,
         loggers: service_version_hash,
         request_settings: service_version_hash,
+        response_objects: service_version_hash,
         service_versions: Hash.new { |sv, s| sv[s] = {} },
         services: {},
         settings: Hash.new { |sv, s| sv[s] = {} },
