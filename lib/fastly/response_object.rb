@@ -46,4 +46,10 @@ class Fastly::ResponseObject
     response = cistern.update_response_object(service_id, version_number, old_name, dirty_attributes)
     merge_attributes(response.body)
   end
+
+  def destroy
+    requires :service_id, :version_number, :identity
+
+    cistern.destroy_response_object(service_id, version_number, identity)
+  end
 end

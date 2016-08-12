@@ -39,5 +39,11 @@ RSpec.describe Fastly do
     it 'lists response_objects' do
       expect(version.response_objects.all).to include(response_object)
     end
+
+    it 'destroys a response_object' do
+      expect do
+        response_object.destroy
+      end.to change(response_object, :reload).to(nil)
+    end
   end
 end
