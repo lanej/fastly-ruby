@@ -14,6 +14,13 @@ class Fastly::CreateResponseObject
     find!(:service_versions, service_id, number.to_i)
     name = accepted_attributes.fetch('name')
     response_object = accepted_attributes.merge('version' => number, 'service_id' => service_id)
+
+    cache_condition_name = response_object['cache_condition']
+
+    if cache_condition_name
+      find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }
+    end
+
     cistern.data[:response_objects][service_id][number.to_i][name] = response_object
 
     mock_response(response_object)
