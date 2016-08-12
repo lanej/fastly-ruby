@@ -7,12 +7,7 @@ class Fastly::GetVersionDiff
 
   parameter :service_id, :from, :to, :format
 
-  def mock
-    mock_response(
-      'from' => from,
-      'to' => to,
-      'format' => format,
-      'diff' => <<-'YAML-ISH'.strip
+  MOCK_DIFF = <<-'YAML-ISH'.strip
        backends:
  - name: My Backend
    address: backend.example.com
@@ -76,6 +71,13 @@ class Fastly::GetVersionDiff
  wordpress: []
 }
       YAML-ISH
+
+  def mock
+    mock_response(
+      'from'   => from,
+      'to'     => to,
+      'format' => format,
+      'diff'   => MOCK_DIFF,
     )
   end
 end
