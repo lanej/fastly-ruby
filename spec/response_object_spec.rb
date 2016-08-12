@@ -42,6 +42,13 @@ RSpec.describe Fastly do
     expect(response_object.reload.request_condition).to eq(condition)
   end
 
+  it 'does not create response_object with a request condition with an invalid type' do
+    condition = a_condition(version: version, type: 'RESPONSE')
+    expect do
+      client.response_objects.create(create_attributes(request_condition: condition.name))
+    end.to raise_error(Fastly::Response::BadRequest, /Condition '#{condition.name}' is not a request condition/)
+  end
+
   describe 'with a response_object' do
     let!(:response_object) { a_response_object(version: version) }
 

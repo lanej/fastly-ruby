@@ -24,7 +24,12 @@ class Fastly::CreateResponseObject
     request_condition_name = response_object['request_condition']
 
     if request_condition_name
-      find!(:conditions, service_id) { |vc| vc.values.find { |c| c[request_condition_name] } }
+      request_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[request_condition_name] } }
+
+      mock_response({
+                      'msg' => AN_ERROR_OCCURRED,
+                      'detail' => "Condition '#{request_condition_name}' is not a request condition",
+                    }, { status: 400 }) unless request_condition['type'] == 'REQUEST'
     end
 
     cistern.data[:response_objects][service_id][number.to_i][name] = response_object
