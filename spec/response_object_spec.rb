@@ -25,6 +25,17 @@ RSpec.describe Fastly do
   describe 'with a response_object' do
     let!(:response_object) { a_response_object(version: version) }
 
+    it 'updates a response_object' do
+      new_content = SecureRandom.uuid
+
+      copy = response_object.dup
+
+      expect do
+        response_object.update(content: new_content)
+      end.to change(response_object, :content).from(response_object.content).to(new_content)
+        .and change { copy.reload.content } .from(response_object.content).to(new_content)
+    end
+
     it 'lists response_objects' do
       expect(version.response_objects.all).to include(response_object)
     end

@@ -162,6 +162,7 @@ require 'fastly/response_objects'
 require 'fastly/create_response_object'
 require 'fastly/get_response_object'
 require 'fastly/get_response_objects'
+require 'fastly/update_response_object'
 
 require 'fastly/real'
 require 'fastly/mock'

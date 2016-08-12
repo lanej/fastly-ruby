@@ -38,4 +38,12 @@ class Fastly::ResponseObject
     response = cistern.create_response_object(service_id, version_number, request_attributes)
     merge_attributes(response.body)
   end
+
+  def save
+    requires :service_id, :version_number, :name
+
+    old_name = changed.key?(:name) ? changed[:name].first : name
+    response = cistern.update_response_object(service_id, version_number, old_name, dirty_attributes)
+    merge_attributes(response.body)
+  end
 end
