@@ -26,15 +26,20 @@ RSpec.describe Fastly do
     expect(response_object.reload.name).to eq(name)
   end
 
-  describe 'with a cache_condition' do
-    it 'creates a response_object with a cache condition' do
-      condition = a_condition(service: service)
+  it 'creates a response_object with a cache condition' do
+    condition = a_condition(version: version, type: 'CACHE')
+    response_object = client.response_objects.create(create_attributes(cache_condition: condition.name))
 
-      response_object = client.response_objects.create(create_attributes(cache_condition: condition.name))
+    expect(response_object.cache_condition).to eq(condition)
+    expect(response_object.reload.cache_condition).to eq(condition)
+  end
 
-      expect(response_object.cache_condition).to eq(condition)
-      expect(response_object.reload.cache_condition).to eq(condition)
-    end
+  it 'creates a response_object with a request condition' do
+    condition = a_condition(version: version, type: 'REQUEST')
+    response_object = client.response_objects.create(create_attributes(request_condition: condition.name))
+
+    expect(response_object.request_condition).to eq(condition)
+    expect(response_object.reload.request_condition).to eq(condition)
   end
 
   describe 'with a response_object' do

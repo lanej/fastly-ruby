@@ -21,6 +21,12 @@ class Fastly::CreateResponseObject
       find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }
     end
 
+    request_condition_name = response_object['request_condition']
+
+    if request_condition_name
+      find!(:conditions, service_id) { |vc| vc.values.find { |c| c[request_condition_name] } }
+    end
+
     cistern.data[:response_objects][service_id][number.to_i][name] = response_object
 
     mock_response(response_object)
