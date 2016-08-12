@@ -3,6 +3,7 @@ require 'fastly/version'
 
 require 'logger'
 require 'securerandom'
+require 'json'
 
 require 'cistern'
 

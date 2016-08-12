@@ -2,17 +2,41 @@
 class Fastly::Response
   class Error < StandardError
     attr_reader :response
+    attr_reader :msg
+    attr_reader :detail
 
     def initialize(response)
       @response = response
-      super(
-        {
-          status: response.status,
-          headers: response.headers,
-          body: response.body,
-          request: response.request,
-        }.inspect
+
+      body = response.body
+
+      if body
+        @msg = body['msg']
+        @detail = body['detail']
+      end
+
+      super(error_message)
+    end
+
+    private
+
+    def error_message
+      message = ''
+      message += detail if detail
+      message += if msg && !detail
+                   msg
+                 elsif msg
+                   " [#{msg}]"
+                 end
+      message += "\n" unless message.empty?
+      message += JSON.pretty_generate(
+        status: response.status,
+        headers: response.headers,
+        body: response.body,
+        request: response.request,
       )
+
+      message
     end
   end
 
