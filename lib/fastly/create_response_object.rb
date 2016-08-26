@@ -18,7 +18,7 @@ class Fastly::CreateResponseObject
     cache_condition_name = response_object['cache_condition']
 
     if cache_condition_name
-      cache_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }
+      cache_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[cache_condition_name] } }[cache_condition_name]
 
       mock_response({
                       'msg' => AN_ERROR_OCCURRED,
@@ -29,7 +29,7 @@ class Fastly::CreateResponseObject
     request_condition_name = response_object['request_condition']
 
     if request_condition_name
-      request_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[request_condition_name] } }
+      request_condition = find!(:conditions, service_id) { |vc| vc.values.find { |c| c[request_condition_name] } }[request_condition_name]
 
       mock_response({
                       'msg' => AN_ERROR_OCCURRED,
