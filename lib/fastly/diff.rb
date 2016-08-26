@@ -19,15 +19,13 @@ class Fastly::Diff
     merge_attributes(data)
   end
 
-  alias cistern_from_version= from_version=
   def from_version=(version)
-    self.cistern_from_version = version
+    super
     merge_attributes(from: attributes[:from_version][:number])
   end
 
-  alias cistern_to_version= to_version=
   def to_version=(version)
-    self.cistern_to_version = version
+    super
     merge_attributes(to: attributes[:to_version][:number])
   end
 end
